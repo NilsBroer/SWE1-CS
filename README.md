@@ -78,7 +78,7 @@ In Visual Studio wird dann diese Datei als "Test Settings" ausgewählt.
 
 Jenkins
 -------
-https://inf-swe-jenkins.technikum-wien.at/view/BIF-SWE1/
+https://inf-swe-jenkins.technikum-wien.at/
 
 Am Jenkins können Sie dann das Ergebnis Ihrer Abgabe sehen.
 
