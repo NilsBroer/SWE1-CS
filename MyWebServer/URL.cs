@@ -8,6 +8,8 @@ namespace MyWebServer
 {
     public class Url : IUrl
     {
+        Dictionary<String, String> parameterDictionary = new Dictionary<string, string>();
+        string rawURL, path, path_in;
         public Url()
         {
 
@@ -15,27 +17,62 @@ namespace MyWebServer
 
         public Url(string raw)
         {
+            rawURL = raw;
+            try
+            {
+                path = raw.Substring(raw.IndexOf("/"));
+            }
+            catch(NullReferenceException)
+            {
+                path = "";
+            }
 
+            if (path.Contains("?"))
+                path_in = path.Substring(0, path.IndexOf("?"));
+            else
+                path_in = path;
+
+            if (path.Contains("?"))
+            {
+                string parameterString = raw.Substring(raw.IndexOf("?"));
+                String[] parameters = parameterString.Split('&');
+
+                if (parameters.Length > 0)
+                {
+                    parameters[0] = parameters[0].Substring(1); //remove question mark from first parameter
+                    foreach (String parameter in parameters)
+                    {
+                        if (parameter.Contains("="))
+                        {
+                            String[] parameter_nameXvalue = parameter.Split('='); //name=value (in URL)
+                            Console.WriteLine("parameter found: " + parameter_nameXvalue[0]);
+                            parameterDictionary.Add(parameter_nameXvalue[0], parameter_nameXvalue[1]);
+                        }
+                    }
+                }
+            }
+            foreach(KeyValuePair<string,string> pair in parameterDictionary)
+                Console.WriteLine(pair.Key + "<-->" + pair.Value);
         }
 
         public IDictionary<string, string> Parameter
         {
-            get { throw new NotImplementedException(); }
+            get { return parameterDictionary; }
         }
 
         public int ParameterCount
         {
-            get { throw new NotImplementedException(); }
+            get { return parameterDictionary.Count; }
         }
 
         public string Path
         {
-            get { throw new NotImplementedException(); }
+            get { return path_in; }
         }
 
         public string RawUrl
         {
-            get { throw new NotImplementedException(); }
+            get { return rawURL; }
         }
 
         public string Extension

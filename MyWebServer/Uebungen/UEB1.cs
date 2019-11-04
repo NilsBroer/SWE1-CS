@@ -7,7 +7,7 @@ using MyWebServer;
 
 namespace Uebungen
 {
-    public class UEB1 : IUEB1
+    public class UEB1
     {
         public void HelloWorld()
         {

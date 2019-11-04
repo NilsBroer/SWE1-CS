@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BIF.SWE1.Interfaces;
-using MyWebServer;
 
 namespace Uebungen
 {
-    public class UEB4 : IUEB4
+    public class UEB4
     {
         public void HelloWorld()
         {
