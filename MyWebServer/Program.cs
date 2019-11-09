@@ -93,17 +93,8 @@ namespace MyWebServer
         
         public void handle_client()
         {
-            Stream stream = client.GetStream();
-            Request request = new Request(stream);
+            Request request = new Request(nstream);
             Console.WriteLine(request.toString());
-                /*if (message_recieved.Contains("EXIT()"))
-                {
-                    byte[] closing_message = Encoding.Default.GetBytes("Disconnected from server.");
-                    nstream.Write(closing_message, 0, closing_message.Length);
-                    break;
-                }
-                //buffer_received = new byte[BUFFER_SIZE];*/
-                
             nstream.Close();
             client.Close();
             Console.WriteLine(clientID + " disconnected.");

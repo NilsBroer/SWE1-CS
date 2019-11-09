@@ -22,7 +22,7 @@ namespace MyWebServer
             {
                 path = raw.Substring(raw.IndexOf("/"));
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 path = "";
             }
@@ -45,14 +45,16 @@ namespace MyWebServer
                         if (parameter.Contains("="))
                         {
                             String[] parameter_nameXvalue = parameter.Split('='); //name=value (in URL)
-                            Console.WriteLine("parameter found: " + parameter_nameXvalue[0]);
+                            //Console.WriteLine("parameter found: " + parameter_nameXvalue[0]);
                             parameterDictionary.Add(parameter_nameXvalue[0], parameter_nameXvalue[1]);
                         }
                     }
                 }
             }
+            /*
             foreach(KeyValuePair<string,string> pair in parameterDictionary)
                 Console.WriteLine(pair.Key + "<-->" + pair.Value);
+            */
         }
 
         public IDictionary<string, string> Parameter
