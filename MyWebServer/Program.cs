@@ -17,9 +17,10 @@ namespace MyWebServer
         static void Main(string[] args)
         {
             int server_port = 8080; //change here
-
             Server server = new Server(server_port);
-            //Server exc_server = new Server(server_port);
+
+            //Server exc_server = new Server(server_port); //Will fail
+            HTTPhelper testhelper = new HTTPhelper(true); //start testhelper with print
 
             server.listen();
             Console.ReadKey(); //hol' up
@@ -94,6 +95,7 @@ namespace MyWebServer
         public void handle_client()
         {
             Request request = new Request(nstream);
+            Response response = new Response(request);
             Console.WriteLine(request.toString());
             nstream.Close();
             client.Close();

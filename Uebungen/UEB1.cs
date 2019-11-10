@@ -7,25 +7,16 @@ using MyWebServer;
 
 namespace Uebungen
 {
-    public class UEB2
+    public class UEB1
     {
         public void HelloWorld()
         {
+            // I'm fine
         }
 
         public IUrl GetUrl(string path)
         {
             return new Url(path);
-        }
-
-        public IRequest GetRequest(System.IO.Stream network)
-        {
-            return new Request(network);
-        }
-
-        public IResponse GetResponse()
-        {
-            return new Response();
         }
     }
 }
