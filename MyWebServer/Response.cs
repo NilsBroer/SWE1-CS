@@ -9,44 +9,82 @@ namespace MyWebServer
 {
     public class Response : IResponse
     {
-        int statuscode_in, ContentLength_in;
-        string status_in, ContentType_in;
-        IDictionary<string,string> headers_in;
-
         HTTPhelper helper = new HTTPhelper();
+        public int statuscode_in;
+        public byte[] content;
 
         public Response()
         {
-            //return;
+            this.Headers = new Dictionary<string, string>
+            {
+                {"cType", ""},
+                {"cLength", ""}
+            };
         }
+
         public Response(Request request)
         {
-            headers_in = new Dictionary<string, string>();
-            AddHeader("Server", "Default Server-Name");
+            this.ServerHeader = "WebServer vong Chris und Nils";
 
-            
-            if (request.IsValid)
-                statuscode_in = 200; // helper.HTTPStatusCodes.FirstOrDefault(x => x.Value == "OK").Key;
-            else
-                statuscode_in = 400; // helper.HTTPStatusCodes.FirstOrDefault(x => x.Value == "Bad Request").Key;
-            
+            this.Headers = new Dictionary<string, string>
+            {
+                {"cType", ""},
+                {"cLength", ""}
+            };
+
+            AddHeader("Server", "Default Server-Name");
         }
 
-        public IDictionary<string, string> Headers => headers_in;
+        public int ContentLength
+        {
+            get
+            {
+                return int.Parse(this.Headers["cLength"]);
+            }
+        }
 
-        public int ContentLength => ContentLength_in;
+        public string ContentType
+        {
+            get => this.Headers["cType"]; set => this.Headers["cType"] = value;
+        }
 
-        public string ContentType { get => ContentType_in; set => ContentType = value; }
+        public IDictionary<string, string> Headers { get; }
 
-        public int StatusCode { get => statuscode_in; set => statuscode_in = value;}
+        public int StatusCode
+        {
+            get
+            {
+                if (this.statuscode_in == 0)
+                    throw new System.InvalidOperationException("Status Code is Null");
 
-        public string Status => statuscode_in.ToString() + " " + helper.HTTPStatusCodes[statuscode_in];
+                return this.statuscode_in;
+            }
 
-        public string ServerHeader { get => throw new NotImplementedException(); set => ServerHeader = value; }
+            set => this.statuscode_in = value;
+        }
+
+        public string Status
+        {
+            get
+            {
+                return (statuscode_in.ToString() + " " + helper.HTTPStatusCodes[this.statuscode_in]);
+            }
+        }
+
+        public string ServerHeader { get; set; }
 
         public void AddHeader(string header, string value)
         {
-            Headers.Add(header, value);
+            if (Headers.ContainsKey(header))
+            {
+                // yay, value exists!
+                Headers[header] = value;
+            }
+            else
+            {
+                // darn, lets add the value
+                Headers.Add(header, value);
+            };
         }
 
         public void Send(Stream network)
@@ -56,17 +94,22 @@ namespace MyWebServer
 
         public void SetContent(string content)
         {
-            throw new NotImplementedException();
+            this.SetContent(Encoding.UTF8.GetBytes(content));
         }
 
         public void SetContent(byte[] content)
         {
-            throw new NotImplementedException();
+            this.content = content;
+            this.Headers["cLength"] = this.content.Length.ToString();
         }
 
         public void SetContent(Stream stream)
         {
-            throw new NotImplementedException();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                stream.CopyTo(ms);
+                SetContent(ms.ToArray());
+            }
         }
     }
 }

@@ -20,7 +20,6 @@ namespace MyWebServer
             Server server = new Server(server_port);
 
             //Server exc_server = new Server(server_port); //Will fail
-            HTTPhelper testhelper = new HTTPhelper(true); //start testhelper with print
 
             server.listen();
             Console.ReadKey(); //hol' up

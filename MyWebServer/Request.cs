@@ -28,34 +28,41 @@ namespace MyWebServer
             String line, hname, hvalue;
             while ((line = stream.ReadLine()) != "")
             {
-                if (line.Contains("HTTP"))
+                try
                 {
-                    method_in = line.Substring(0, line.IndexOf(" ")).ToUpper();
+                    if (line.Contains("HTTP"))
+                    {
+                        method_in = line.Substring(0, line.IndexOf(" ")).ToUpper();
 
-                    url_str = line.Substring(method_in.Length + 1, line.Length - (method_in.Length + " HTTP/1.1".Length + 1));
-                    header_count_in++;
+                        url_str = line.Substring(method_in.Length + 1, line.Length - (method_in.Length + " HTTP/1.1".Length + 1));
+                        header_count_in++;
 
-                    url_in = new Url(url_str);
+                        url_in = new Url(url_str);
 
-                    if(valid_methods.Contains(method_in))
-                        isValid_in = true;
+                        if (valid_methods.Contains(method_in))
+                            isValid_in = true;
+                    }
+
+                    if (line.Contains(": "))
+                    {
+                        hname = line.Substring(0, line.IndexOf(": "));
+                        hvalue = line.Substring(line.IndexOf(": ") + 2); //+2 --> exclude ": "
+                        headers_in.Add(hname.ToLower(), hvalue);
+                        header_count_in++;
+
+                        //Console.WriteLine("Name: " + hname + " - Value: " + hvalue);
+
+                        if (hname == "User-Agent")
+                            user_agent_in = hvalue;
+                        else if (hname == "Content-Type")
+                            content_type_in = hvalue;
+                        else if (hname == "Content-Length")
+                            content_length_in = Int32.Parse(hvalue);
+                    }
                 }
-
-                if(line.Contains(": "))
+                catch (Exception)
                 {
-                    hname = line.Substring(0, line.IndexOf(": "));
-                    hvalue = line.Substring(line.IndexOf(": ") + 2); //+2 --> exclude ": "
-                    headers_in.Add(hname.ToLower(), hvalue);
-                    header_count_in++;
-
-                    //Console.WriteLine("Name: " + hname + " - Value: " + hvalue);
-
-                    if (hname == "User-Agent")
-                        user_agent_in = hvalue;
-                    else if (hname == "Content-Type")
-                        content_type_in = hvalue;
-                    else if (hname == "Content-Length")
-                        content_length_in = Int32.Parse(hvalue);
+                    throw;
                 }
             }
 

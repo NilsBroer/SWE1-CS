@@ -9,7 +9,8 @@ namespace MyWebServer
     public class Url : IUrl
     {
         Dictionary<String, String> parameterDictionary = new Dictionary<string, string>();
-        string rawURL, path, path_in;
+        string rawURL, path, path_in, fragment;
+        String[] segment;
         public Url()
         {
 
@@ -51,6 +52,19 @@ namespace MyWebServer
                     }
                 }
             }
+
+            if (path.Contains("/"))
+            {
+                String[] parameters = path.Substring(1).Split('/');
+                segment = parameters;
+            }
+
+            if (path.Contains("#"))
+            {
+                String[] parameters = path.Split('#');
+                path_in = parameters[0];
+                fragment = parameters[1];
+            }
             /*
             foreach(KeyValuePair<string,string> pair in parameterDictionary)
                 Console.WriteLine(pair.Key + "<-->" + pair.Value);
@@ -89,12 +103,12 @@ namespace MyWebServer
 
         public string Fragment
         {
-            get { throw new NotImplementedException(); }
+            get { return fragment; }
         }
 
         public string[] Segments
         {
-            get { throw new NotImplementedException(); }
+            get { return segment; }
         }
     }
 }

@@ -11,12 +11,18 @@ namespace MyWebServer
 {
     class HTTPhelper
     {
-        public Dictionary <int,string>HTTPStatusCodes = new Dictionary<int,string>();
-        public HTTPhelper(bool printcodes = false)
+        public Dictionary <int,string> HTTPStatusCodes = new Dictionary<int,string>();
+        public HTTPhelper()
         {
             try //Read a bunch of possible HTTP-Statuses from a file, ready for use :)
             {
-                using (StreamReader FileReader = new StreamReader("../Libs/HTTPStatuses.txt"))
+                string httpath = System.AppDomain.CurrentDomain.BaseDirectory;
+                if (httpath.Contains("deploy"))
+                    httpath += "/Libs/HTTPStatuses.txt";
+                else
+                    httpath += "/../../SWE1-CS/Libs/HTTPStatuses.txt";
+
+                using (StreamReader FileReader = new StreamReader(httpath))
                 {
                     String line;
                     while (!(line = FileReader.ReadLine()).Contains("[END]"))
@@ -26,12 +32,6 @@ namespace MyWebServer
                             HTTPStatusCodes.Add(Int32.Parse(line.Substring(0, 3)), line.Substring(4));
                         }
                     }
-                }
-
-                if (printcodes)
-                {
-                    foreach (KeyValuePair<int, string> pair in HTTPStatusCodes)
-                        Console.WriteLine("Status: {0}, which means \"{1}\" ", pair.Key, pair.Value);
                 }
             }
             catch (Exception exc)
