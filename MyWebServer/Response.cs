@@ -12,6 +12,7 @@ namespace MyWebServer
         HTTPhelper helper = new HTTPhelper();
         public int statuscode_in;
         public byte[] content;
+        string ServerHeader_in;
 
         public Response()
         {
@@ -20,6 +21,8 @@ namespace MyWebServer
                 {"cType", ""},
                 {"cLength", ""}
             };
+
+            ServerHeader_in = "BIF-SWE1-Server";
         }
 
         public Response(Request request)
@@ -71,7 +74,7 @@ namespace MyWebServer
             }
         }
 
-        public string ServerHeader { get; set; }
+        public string ServerHeader { get => ServerHeader_in; set => ServerHeader_in = value; }
 
         public void AddHeader(string header, string value)
         {
