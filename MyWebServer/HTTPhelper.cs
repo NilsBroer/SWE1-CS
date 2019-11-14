@@ -18,9 +18,9 @@ namespace MyWebServer
             {
                 string httpath = System.AppDomain.CurrentDomain.BaseDirectory;
                 if (httpath.Contains("deploy"))
-                    httpath += "/Libs/HTTPStatuses.txt";
+                    httpath += "/../Libs/HTTPStatuses.txt";
                 else
-                    httpath += "/../../SWE1-CS/Libs/HTTPStatuses.txt";
+                    httpath += "/SWE1-CS_Nils/Libs/HTTPStatuses.txt";
 
                 using (StreamReader FileReader = new StreamReader(httpath))
                 {
