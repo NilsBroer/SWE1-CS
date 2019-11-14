@@ -20,7 +20,7 @@ namespace Uebungen
 
         public IResponse GetResponse()
         {
-            throw new NotImplementedException();
+            return new Response();
         }
 
         public IPlugin GetTestPlugin()
