@@ -18,8 +18,9 @@ namespace MyWebServer
         {
             int server_port = 8080; //change here
             Server server = new Server(server_port);
-
             //Server exc_server = new Server(server_port); //Will fail
+
+            //DEMO.DB_Populator populator = new DEMO.DB_Populator(); //Populate DataBase, !do not uncomment!
 
             server.listen();
             Console.ReadKey(); //hol' up

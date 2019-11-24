@@ -70,4 +70,7 @@
 511 Network Authentication Required
 599 Network Connect Timeout Error
 
+[6xx Custom Status]
+690 Ich tanz den Käse
+
 [END]
