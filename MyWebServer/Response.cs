@@ -12,7 +12,6 @@ namespace MyWebServer
         HTTPhelper helper = new HTTPhelper();
         public int statuscode_in;
         public byte[] content;
-        string ServerHeader_in;
 
         public Response()
         {
@@ -65,13 +64,13 @@ namespace MyWebServer
         {
             get
             {
-                if (this.statuscode_in == 0)
+                if (statuscode_in == 0)
                     throw new System.InvalidOperationException("Status Code not set properly");
 
-                return this.statuscode_in;
+                return statuscode_in;
             }
 
-            set => this.statuscode_in = value;
+            set => statuscode_in = value;
         }
 
         public string Status
@@ -87,7 +86,6 @@ namespace MyWebServer
       
         public void AddHeader(string header, string value)
         {
-            // yay, value exists!
             Headers[header] = value;
         }
 
