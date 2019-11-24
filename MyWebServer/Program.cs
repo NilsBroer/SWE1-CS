@@ -94,7 +94,6 @@ namespace MyWebServer
         public void handle_client()
         {
             Request request = new Request(nstream);
-            Response response = new Response(request);
             Console.WriteLine(request.toString());
             nstream.Close();
             client.Close();
