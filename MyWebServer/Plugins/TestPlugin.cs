@@ -10,17 +10,39 @@ namespace MyWebServer.Plugins
     {
         public float CanHandle(IRequest req)
         {
-            if (req.Url.RawUrl.ToLower().Contains("test") || req.Url.RawUrl == "/" /*replace this with a search for a page that also succeeds if no page is requested (rawUrl = "/")*/)
+            if (req.Url.RawUrl.ToLower().Contains("test"))
                 return 1.0f;
-            else
-                return 0.0f;
+
+            if (req.Url.RawUrl == "/")
+                return 0.1f;
+
+            return 0.0f;
         }
 
         public IResponse Handle(IRequest req)
         {
+            if (req.IsValid)
+            {
+                if (req.Url.RawUrl.ToLower().Contains("test"))
+                {
+                    Response res = new Response();
+                    res.StatusCode = 200;
+                    res.SetContent("GREAT SUCCESS");
+                    return res;
+                }
+
+                if (req.Url.RawUrl == "/")
+                {
+                    Response res = new Response();
+                    res.StatusCode = 200;
+                    res.SetContent("MILD SUCCESS");
+                    return res;
+                }
+            }
+
             Response re = new Response();
-            re.StatusCode = 200;
-            re.SetContent("GREAT SUCCESS");
+            re.StatusCode = 500;
+            re.SetContent("Cannot Handle!");
             return re;
         }
     }

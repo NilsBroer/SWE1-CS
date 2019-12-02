@@ -9,31 +9,24 @@ namespace MyWebServer
 {
     class PluginManager : IPluginManager
     {
-        List<IPlugin> Plugins_in = new List<IPlugin>();
         public PluginManager()
         {
-            /*//Delete me, just for pathing reference, if needed later
-            string defplugpath = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (defplugpath.Contains("deploy"))
-                defplugpath += "/../MyWebServer/Plugins";
-            else
-                defplugpath += "/../../SWE1-CS/MyWebServer/Plugins";
+            MyWebServer.Plugins.TestPlugin test = new Plugins.TestPlugin();
+            MyWebServer.Plugins.NavigationPlugin navi = new Plugins.NavigationPlugin();
+            MyWebServer.Plugins.StaticFilePlugin stat = new Plugins.StaticFilePlugin();
+            MyWebServer.Plugins.TemperatureMeasurementPlugin temp = new Plugins.TemperatureMeasurementPlugin();
+            MyWebServer.Plugins.ToLowerPlugin tlwr = new Plugins.ToLowerPlugin();
 
-            foreach(var plugin in Directory.GetFiles(defplugpath, "*Plugin.cs"))
-            {
-                IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin));
-
-                if (pluginObj == null)
-                {
-                    throw new Exception();
-                }
-                else
-                    Plugins_in.Add(pluginObj);
-            }
-            */
-            
+            Add(test);
+            Add(navi);
+            Add(stat);
+            Add(temp);
+            Add(tlwr);
         }
-        public IEnumerable<IPlugin> Plugins => Plugins_in;
+
+        List<IPlugin> Plugins_in = new List<IPlugin>();
+
+        public IEnumerable<IPlugin> Plugins { get => Plugins_in; }
 
         public void Add(IPlugin plugin)
         {

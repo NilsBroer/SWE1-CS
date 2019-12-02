@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Temperature]
+(
+	[ID] INT NOT NULL IDENTITY(0,1) PRIMARY KEY,
+	[Time-Stamp] DATE NOT NULL,
+	[Value] FLOAT NOT NULL,
+	[isAutoGenerate] BIT NOT NULL DEFAULT 0
+)
