@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace MyWebServer
 {
@@ -77,7 +78,40 @@ namespace MyWebServer
 
         }
 
- //testing...
+        //testing...
+
+        /*private Dictionary<String,String> postPar = new Dictionary<String,String>();
+
+        public static String decodeUrl (String url)
+        {
+            return HttpUtility.UrlDecode(url, System.Text.Encoding.UTF8);
+        }
+
+        public string GetPostVal (string key)
+        {
+            if (!this.Method.Equals("POST"))    
+                return null;
+
+            if (this.ContentString.Length == 0)
+                return null;
+
+            if (postPar.Count == 0)
+            {
+                String[] parArray = this.ContentString.Split('&');
+
+                foreach (String par in parArray)
+                {
+                    String[] parPair = par.Split(new char[] { '=' }, 2);
+                    postPar.Add(parPair[0], decodeUrl(parPair[1]));
+                }
+            }
+
+            if (postPar.ContainsKey(key))
+                return postPar[key];
+
+
+            return null;
+        }*/
 
         public String toString()
         {
