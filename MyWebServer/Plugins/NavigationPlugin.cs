@@ -10,7 +10,15 @@ namespace MyWebServer.Plugins
     {
         public float CanHandle(IRequest req)
         {
-            throw new NotImplementedException();
+            if (req.IsValid == false)
+                return 0.0f;
+
+            if ((req.Method.Equals("GET") || req.Method.Equals("POST")) && (req.Url.Path.StartsWith("/navigation")))
+            {
+                return 0.9f;
+            }
+
+            return 0.1f;
         }
 
         public IResponse Handle(IRequest req)

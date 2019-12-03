@@ -18,10 +18,20 @@ namespace MyWebServer.Plugins
 
         public IResponse Handle(IRequest req)
         {
-            Response re = new Response();
-            re.StatusCode = 200;
-            re.SetContent("GREAT SUCCESS");
-            return re;
+            if (CanHandle(req) != 0.0f)
+            {
+                Response re = new Response();
+                re.StatusCode = 200;
+                re.SetContent("GREAT SUCCESS");
+                return re;
+            }
+            else
+            {
+                Response re = new Response();
+                re.StatusCode = 500;
+                re.SetContent("Damn");
+                return re;
+            }
         }
     }
 }
