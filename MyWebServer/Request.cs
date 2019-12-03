@@ -32,7 +32,7 @@ namespace MyWebServer
                 {
                     if (line.Contains("HTTP"))
                     {
-                        Console.WriteLine("First line: " + line);
+                        //Console.WriteLine("First line: " + line);
                         method_in = line.Substring(0, line.IndexOf(" ")).ToUpper();
 
                         url_str = line.Substring(method_in.Length + 1, line.Length - (method_in.Length + " HTTP/1.1".Length + 1));

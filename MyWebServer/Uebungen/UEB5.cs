@@ -31,12 +31,14 @@ namespace Uebungen
 
         public string GetStaticFileUrl(string fileName)
         {
-            throw new NotImplementedException();
+            StaticFilePlugin sfp = new StaticFilePlugin();
+            return sfp.GetStaticFileUrl(fileName);
         }
 
         public void SetStatiFileFolder(string folder)
         {
-            throw new NotImplementedException();
+            StaticFilePlugin sfp = new StaticFilePlugin();
+            sfp.SetStatiFileFolder(folder);
         }
     }
 }

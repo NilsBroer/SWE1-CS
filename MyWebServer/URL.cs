@@ -27,6 +27,10 @@ namespace MyWebServer
             {
                 path = "";
             }
+            catch (ArgumentOutOfRangeException) //not good practice
+            {
+                path = raw;
+            }
 
             if (path.Contains("?"))
                 path_in = path.Substring(0, path.IndexOf("?"));
