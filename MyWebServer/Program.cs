@@ -81,15 +81,13 @@ namespace MyWebServer
 
         private NetworkStream nstream;
         private TcpClient client;
-        private String clientID;
         static int connected_client = 0;
         public ClientHandler(NetworkStream nstream_in, TcpClient client_in)
         {
             nstream = nstream_in;
             client = client_in;
             connected_client++;
-            clientID = "Client_0" + connected_client.ToString();
-            Console.WriteLine(clientID + " connected successfully.");
+            Console.WriteLine("Connected. [{0}]", connected_client);
         }
         
         public void handle_client()
@@ -98,7 +96,8 @@ namespace MyWebServer
             Console.WriteLine(request.toString());
             nstream.Close();
             client.Close();
-            Console.WriteLine(clientID + " disconnected.");
+            Console.WriteLine("Disconnected. [{0}]",connected_client);
+            connected_client--;
         }
     }
 }

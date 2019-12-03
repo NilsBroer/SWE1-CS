@@ -10,30 +10,28 @@ namespace MyWebServer
     class PluginManager : IPluginManager
     {
         List<IPlugin> Plugins_in = new List<IPlugin>();
+
         public PluginManager()
         {
-            /*//Delete me, just for pathing reference, if needed later
-            string defplugpath = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (defplugpath.Contains("deploy"))
-                defplugpath += "/../MyWebServer/Plugins";
-            else
-                defplugpath += "/../../SWE1-CS/MyWebServer/Plugins";
+            MyWebServer.Plugins.TestPlugin test = new Plugins.TestPlugin();
+            MyWebServer.Plugins.NavigationPlugin navi = new Plugins.NavigationPlugin();
+            MyWebServer.Plugins.StaticFilePlugin stat = new Plugins.StaticFilePlugin();
+            MyWebServer.Plugins.TemperatureMeasurementPlugin temp = new Plugins.TemperatureMeasurementPlugin();
+            MyWebServer.Plugins.ToLowerPlugin tlwr = new Plugins.ToLowerPlugin();
 
-            foreach(var plugin in Directory.GetFiles(defplugpath, "*Plugin.cs"))
-            {
-                IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin));
-
-                if (pluginObj == null)
-                {
-                    throw new Exception();
-                }
-                else
-                    Plugins_in.Add(pluginObj);
-            }
-            */
-            
+            Add(test);
+            Add(navi);
+            Add(stat);
+            Add(temp);
+            Add(tlwr);
         }
+
         public IEnumerable<IPlugin> Plugins => Plugins_in;
+
+        public IEnumerable<IPlugin> GetPlugins()
+        {
+            return this.Plugins;
+        }
 
         public void Add(IPlugin plugin)
         {
@@ -50,6 +48,24 @@ namespace MyWebServer
             }
             else
                 Plugins_in.Add(pluginObj);
+        }
+
+        public IPlugin getRequiredPlugin (IRequest req)
+        {
+            IPlugin plug = null;
+            float highest = 0;
+            
+            foreach (IPlugin p in this.GetPlugins())
+            {
+                float checker = p.CanHandle(req);
+                if (checker > highest)
+                {
+                    highest = checker;
+                    plug = p;
+                }
+            }
+
+            return plug;
         }
 
         public void Clear()
