@@ -13,13 +13,25 @@ namespace MyWebServer.Plugins
 
         public float CanHandle(IRequest req)
         {
+
+            if (req.IsValid == false)
+                return 0.0f;
+
+            if ((req.Method.Equals("GET") || req.Method.Equals("POST")) && (req.Url.Path.StartsWith("/static")))
+            {
+                return 0.9f;
+            }
+            else
+                return 0.1f;
+            /*
             string filepath = req.Url.Path;
-            if (filepath.EndsWith(".txt") /*erweitern: ends with mime-type*/)
+            if (filepath.EndsWith(".txt")) //^=Ends with mime type
                 return 0.9f;
             else
             {
                 return 0f;
             }
+            */
         }
 
         public string GetStaticFileUrl(string fileName)
