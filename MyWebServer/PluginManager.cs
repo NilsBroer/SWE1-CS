@@ -64,7 +64,9 @@ namespace MyWebServer
                     plug = p;
                 }
             }
-
+            if (highest <= 0.1f)
+                return null;
+            Console.WriteLine("highest: " + highest);
             return plug;
         }
 
