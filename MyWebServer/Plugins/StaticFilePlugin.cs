@@ -22,7 +22,7 @@ namespace MyWebServer.Plugins
                 return 0.9f;
             }
             else
-                return 0.1f;
+                return 0.5f;
             /*
             string filepath = req.Url.Path;
             if (filepath.EndsWith(".txt")) //^=Ends with mime type

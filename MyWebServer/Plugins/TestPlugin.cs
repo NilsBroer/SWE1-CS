@@ -10,10 +10,10 @@ namespace MyWebServer.Plugins
     {
         public float CanHandle(IRequest req)
         {
-            if (req.Url.RawUrl.ToLower().Contains("test") || req.Url.RawUrl == "/" /*replace this with a search for a page that also succeeds if no page is requested (rawUrl = "/")*/)
+            if (req.Url.RawUrl.ToLower().Contains("test") || req.Url.RawUrl == "/" /*replace this with a search for a page that returns main-page if (rawUrl = "/")*/)
                 return 1.0f;
             else
-                return 0.0f;
+                return 0.0f; //test-case requires == 0f
         }
 
         public IResponse Handle(IRequest req)
@@ -29,7 +29,6 @@ namespace MyWebServer.Plugins
             {
                 Response re = new Response();
                 re.StatusCode = 500;
-                re.SetContent("Damn");
                 return re;
             }
         }
