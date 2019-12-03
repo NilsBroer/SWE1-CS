@@ -12,25 +12,6 @@ namespace MyWebServer
         List<IPlugin> Plugins_in = new List<IPlugin>();
         public PluginManager()
         {
-            /*//Delete me, just for pathing reference, if needed later
-            string defplugpath = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (defplugpath.Contains("deploy"))
-                defplugpath += "/../MyWebServer/Plugins";
-            else
-                defplugpath += "/../../SWE1-CS/MyWebServer/Plugins";
-
-            foreach(var plugin in Directory.GetFiles(defplugpath, "*Plugin.cs"))
-            {
-                IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin));
-
-                if (pluginObj == null)
-                {
-                    throw new Exception();
-                }
-                else
-                    Plugins_in.Add(pluginObj);
-            }
-            */
             
         }
         public IEnumerable<IPlugin> Plugins => Plugins_in;
