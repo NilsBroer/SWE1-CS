@@ -80,7 +80,7 @@ namespace MyWebServer
 
         //testing...
 
-        /*private Dictionary<String,String> postPar = new Dictionary<String,String>();
+        private Dictionary<String,String> postPar = new Dictionary<String,String>();
 
         public static String decodeUrl (String url)
         {
@@ -111,7 +111,7 @@ namespace MyWebServer
 
 
             return null;
-        }*/
+        }
 
         public String toString()
         {
