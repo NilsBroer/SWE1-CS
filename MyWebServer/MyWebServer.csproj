@@ -57,9 +57,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BIF-SWE1.Interfaces">
-      <HintPath>..\Libs\BIF-SWE1.Interfaces.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -115,6 +112,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unit tests\BIF-SWE1\CS\BIF-SWE1.Interfaces\BIF-SWE1.Interfaces.csproj">
+      <Project>{27c44945-cb10-48bf-ad69-457d496b32a2}</Project>
+      <Name>BIF-SWE1.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
