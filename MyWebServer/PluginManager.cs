@@ -40,7 +40,7 @@ namespace MyWebServer
 
         public void Add(string plugin)
         {
-            IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin)); //Examine what this does in more detail
+            IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin)); 
 
             if (pluginObj == null)
             {

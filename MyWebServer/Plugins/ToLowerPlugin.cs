@@ -14,7 +14,7 @@ namespace MyWebServer.Plugins
             if (req.IsValid == false)
                 return 0.0f;
 
-            if ( (req.Method.Equals("GET") || req.Method.Equals("POST")) && (req.Url.Path.StartsWith("/tolower")) )
+            if ( (req.Method == "GET") || (req.Method == "POST") && (req.Url.Path.StartsWith("/tolower")) )
             {
                 return 0.9f;
             }
@@ -36,7 +36,7 @@ namespace MyWebServer.Plugins
 
             if (req.Method.Equals("POST") && ((Request)req).GetPostVal("text") != null && ((Request)req).GetPostVal("text").Length > 0 )
             {
-                string str = ((Request)req).GetPostVal("text").ToLower();
+                string str = ((Request)req).GetPostVal("text").ToLower();   //security
                 str.Replace("<", "&lt;");
                 str.Replace(">", "&gt;");
                 content.Append(str);
@@ -51,11 +51,6 @@ namespace MyWebServer.Plugins
 
             return response;
             //throw new NotImplementedException();
-        }
-
-        public string GetToLowerUrl()
-        {
-            return "www.example.com/tolower";
         }
     }
 }
