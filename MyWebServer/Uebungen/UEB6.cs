@@ -56,7 +56,8 @@ namespace Uebungen
 
         public string GetToLowerUrl()
         {
-            throw new NotImplementedException();
+            ToLowerPlugin repl = new ToLowerPlugin();
+            return "/tolower";
         }
     }
 }
