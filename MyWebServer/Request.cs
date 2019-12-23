@@ -116,7 +116,7 @@ namespace MyWebServer
         public String toString()
         {
             String returnValue = "Request Method: " + this.method_in + "\n";
-            returnValue = returnValue + "URL: " + this.url_in + "\n";
+            returnValue = returnValue + "URL: " + this.url_in.RawUrl + "\n";
             returnValue = returnValue + "Valid: " + (this.isValid_in ? "Yes" : "No") + "\n";
             returnValue = returnValue + "User-Agent: " + this.user_agent_in + "\n";
             returnValue = returnValue + "Content-Type: " + this.content_type_in + "\n";

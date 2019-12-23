@@ -18,7 +18,12 @@ namespace MyWebServer.Plugins
                 return 0.9f;
             }
 
-            return 0.1f;
+            return 0.0f;
+        }
+
+        public string GetUrl()
+        {
+            return "/navigation/";
         }
 
         public IResponse Handle(IRequest req)

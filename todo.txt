@@ -1,0 +1,73 @@
+SWE - TO DO (abgesehen von Units-Tests):
+
+Welche Plugins vom Webserver genutzt werden, muss konfigurierbar sein. Weitere,
+„Dritthersteller Plugins“, müssen ohne neue Kompilierung des Web-Servers hinzugefügt
+werden können.
+
+Temperatur Messung
+(
+• Ein eigener Thread liest laufend einen Sensor aus
+• Für die Übung: Es werden Zufallszahlen oder ein Sinus, etc. berechnet
+--> Plugins müssen die Datenbank NICHT verwalten können, TempPlugin selber liest also nur aus
+) 
+• Auf der WebOberfläche können die Messdaten dargestellt werden
+• Bei 10.000 Messwerten muss die Oberfläche zwangsläufig eine Suche bzw. Blättern unterstützen
+• Eine REST Abfrage http://localhost:8080/GetTemperature/2012/09/20 soll alle Temeraturdaten des angegebenen Tages als XML zurück geben. Das XML Format ist frei wählbar.
+
+Navi
+• Als extra Feature, weil das Embedded System Speicherkarten aufnehmen kann
+• In einem Textfeld wird ein Straßenname eingegeben
+• Das Plugin gibt anschließend eine Liste aller Orte aus, in denen die Straße existiert.
+– Arbeiter Strandbad Straße
+– -> In Wien.
+• Eine Karte mit allen Straßen sowie Orten kann von OpenStreetmap bezogen werden.
+– Die Datei müsste ein ca. 4 GB großes XML Dokument sein
+– http://download.geofabrik.de/osm/europe/
+– Es genügt, wenn einer/eine die Datei organisiert und allen anderen weitergibt.
+• Eine eigene Seite im Navi Plugin kann den Befehl: „Staßenkarte neu aufbereiten“ auslösen
+– Dieser Befehlt liest die OpenStreetmap Karte (neu) ein und erstellt eine interne Straßen
+<-> Ort Zuordnung im Hauptspeicher (z.B. in einem Dictionary oder HashTable). Wer
+möchte, kann das auch in der Datenbank speichern, ist aber nicht Pflicht.
+– Dies ist mittels SAX Parsers zu realisieren
+– Es genügen die POI Tags! Keine geografischen Zuordnungen durchführen!
+– XPath: //node|way/tag[@k,@v]
+– Während dieser Aufbereitung darf das Plugin keine anderen Abfragen annehmen dürfen.
+Es muss stattdessen eine Warnmeldung ausgeben (Multiuserfähigkeit)
+
+ToLower
+• In einer textarea kann beliebig langer Text eingegeben werden
+• Ein Submit-Button sendet den Text mittels POST Request an den Server
+
+1.4 20 Unit Tests
+Implementieren Sie 20 eigene Unit Tests. Testen Sie z.B. Ihre Plugins genauer.
+
+1.5 JavaDoc/Doxygen/XML Documentation Comments
+Versehen Sie alle public Klassen/Methoden/Eigenschaften mit Kommentaren, aus denen mittels
+Tools eine API Dokumentation erstellt werden kann. Führen Sie das Tool Ihrer Wahl aus und
+zeigen Sie uns das Ergebnis.
+Wenn Sie unsicher sind bzgl. des Tools dann fragen Sie uns.
+Mögliche Tools:
+• Doxygen
+• Sandcastle
+Falls Sie ein anderes Tool nutzen möchten, können Sie dies sehr gerne tun. Evtl. sprechen Sie
+sich mit uns ab.
+
+1.7 Dokumentation
+Ausgedruckt 1 ca. A4 Seite lang.
+Inhalt
+1. Benutzerhandbuch – Wie wird die Applikation verwendet
+2. Lösungsbeschreibung – Wie wurde die Aufgabe gelöst
+3. Worauf bin ich stolz
+4. Was würde ich das nächste mal anders machen
+
+
+BEI DISKUSSIONSBEDARF:
+
+1.6 Nicht Dokumentierte Anforderungen
+Anforderungen, welche nicht explizit dokumentiert oder durch Unit-Test festgelegt sind, dürfen Sie
+selbst bestimmen, wie sie diese umsetzen.
+Wenn Sie uns fragen, werden Sie Antworten erhalten.
+
+2 Bewertung
+2.1 Automatisierte Tests
+Die Übung wird automatisiert getestet und bewertet. Näheres finden Sie im Moodle-Kurs.
