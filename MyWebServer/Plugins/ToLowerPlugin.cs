@@ -14,19 +14,23 @@ namespace MyWebServer.Plugins
             if (req.IsValid == false)
                 return 0.0f;
 
-            if ( (req.Method == "GET") || (req.Method == "POST") && (req.Url.Path.StartsWith("/tolower")) )
+            if ( ((req.Method == "GET") || (req.Method == "POST")) && (req.Url.Path).StartsWith("/tolower") ) //Chris.. Klammernsetzung war falsch. Bitte in Zukunft schauen ob du eh keinen bereits bestandenen Test breakst. 
             {
                 return 0.9f;
             }
 
-            return 0.1f;
+            return 0.1f; //can lower any string
+        }
+
+        public string GetUrl()
+        {
+            return "/tolower/";
         }
 
         public IResponse Handle(IRequest req)
         {
             if (this.CanHandle(req) <= 0)
-                throw new Exception("Can't handle this sheet");
-
+                throw new Exception("Can't handle this sheet"); //Throwing does not stop running
             IResponse response = new Response();
             response.StatusCode = 200;
 
@@ -50,7 +54,6 @@ namespace MyWebServer.Plugins
             response.SetContent(content.ToString());
 
             return response;
-            //throw new NotImplementedException();
         }
     }
 }

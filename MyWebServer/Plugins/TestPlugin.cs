@@ -16,6 +16,11 @@ namespace MyWebServer.Plugins
                 return 0.0f; //test-case requires == 0f
         }
 
+        public string GetUrl()
+        {
+            return "/test/";
+        }
+
         public IResponse Handle(IRequest req)
         {
             if (CanHandle(req) != 0.0f)

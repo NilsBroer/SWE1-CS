@@ -32,7 +32,7 @@ namespace Uebungen
         public string GetStaticFileUrl(string fileName)
         {
             StaticFilePlugin sfp = new StaticFilePlugin();
-            return sfp.GetStaticFileUrl(fileName);
+            return sfp.GetUrl(fileName);
         }
 
         public void SetStatiFileFolder(string folder)

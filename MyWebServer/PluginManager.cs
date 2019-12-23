@@ -65,8 +65,11 @@ namespace MyWebServer
                 }
             }
             if (highest <= 0.1f)
+            {
+                Console.WriteLine("No appropriate plugin found."); //Change later
                 return null;
-            Console.WriteLine("highest: " + highest);
+            }
+            Console.WriteLine("Returned: " + plug.ToString()); //Rather print plugin-name
             return plug;
         }
 

@@ -26,7 +26,8 @@ namespace Uebungen
 
         public string GetNaviUrl()
         {
-            throw new NotImplementedException();
+            NavigationPlugin plugin = new NavigationPlugin();
+            return plugin.GetUrl();
         }
 
         public IPlugin GetNavigationPlugin()
@@ -41,12 +42,14 @@ namespace Uebungen
 
         public string GetTemperatureRestUrl(DateTime from, DateTime until)
         {
-            throw new NotImplementedException();
+            TemperatureMeasurementPlugin plugin = new TemperatureMeasurementPlugin();
+            return plugin.GetRestUrl(from, until);
         }
 
         public string GetTemperatureUrl(DateTime from, DateTime until)
         {
-            throw new NotImplementedException();
+            TemperatureMeasurementPlugin plugin = new TemperatureMeasurementPlugin();
+            return plugin.GetUrl(from, until);
         }
 
         public IPlugin GetToLowerPlugin()

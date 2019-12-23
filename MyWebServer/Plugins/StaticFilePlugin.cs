@@ -22,7 +22,7 @@ namespace MyWebServer.Plugins
                 return 0.9f;
             }
             else
-                return 0.5f;
+                return 0.5f; //plugin can search for weird file
             /*
             string filepath = req.Url.Path;
             if (filepath.EndsWith(".txt")) //^=Ends with mime type
@@ -34,9 +34,16 @@ namespace MyWebServer.Plugins
             */
         }
 
-        public string GetStaticFileUrl(string fileName)
+        public string GetUrl()
         {
-            return this.folder += fileName;
+            return "/static/";
+        }
+
+        public string GetUrl(string fileName)
+        {
+            if (fileName.StartsWith("/"))
+                fileName = fileName.Substring(1);
+            return "/static/" + fileName;
         }
 
         public void SetStatiFileFolder(string folder)
@@ -54,7 +61,15 @@ namespace MyWebServer.Plugins
             else
                 this.folder += "/../../unit tests/BIF-SWE1/static-files/";
 
-            string filepath = folder += req.Url.Path;
+            string filepath = req.Url.Path; //prettify following, but it works :)
+
+            if (filepath.IndexOf("/static") != -1)
+                filepath = filepath.Substring(filepath.IndexOf("/static") + "/static".Length);
+
+            if ((filepath).StartsWith("/"))
+                filepath = folder += filepath.Substring(1);
+            else
+                filepath = folder += filepath;
 
             Console.WriteLine(filepath);
             if (File.Exists(filepath))

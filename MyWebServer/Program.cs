@@ -92,7 +92,13 @@ namespace MyWebServer
         public void handle_client()
         {
             Request request = new Request(nstream);
+            PluginManager pluginmanager = new PluginManager();
             Console.WriteLine(request.toString());
+            var plugin = pluginmanager.getRequiredPlugin(request);
+            if(plugin!=null)
+            {
+                (plugin.Handle(request)).Send(nstream);
+            }
             nstream.Close();
             client.Close();
             Console.WriteLine("Disconnected. [{0}]",connected_client);
