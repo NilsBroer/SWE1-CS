@@ -36,7 +36,7 @@ namespace MyWebServer.Plugins
 
         public string GetUrl()
         {
-            return "/static/";
+            return "/static";
         }
 
         public string GetUrl(string fileName)
@@ -76,6 +76,7 @@ namespace MyWebServer.Plugins
             {
                 res.StatusCode = 200;
                 res.SetContent(File.ReadAllBytes(filepath));
+                res.ContentType = filepath.Substring(filepath.LastIndexOf(".")+1);
             }
             else
             {
