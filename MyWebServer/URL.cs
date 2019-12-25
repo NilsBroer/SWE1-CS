@@ -9,8 +9,8 @@ namespace MyWebServer
     public class Url : IUrl
     {
         Dictionary<String, String> parameterDictionary = new Dictionary<string, string>();
-        string rawURL, path, path_in, fragment;
-        String[] segment;
+        string rawURL, path, trimmed_path, fragment, filename, extension;
+        String[] parameters, segments;
         public Url()
         {
 
@@ -33,14 +33,14 @@ namespace MyWebServer
             }
 
             if (path.Contains("?"))
-                path_in = path.Substring(0, path.IndexOf("?"));
+                trimmed_path = path.Substring(0, path.IndexOf("?"));
             else
-                path_in = path;
+                trimmed_path = path;
 
             if (path.Contains("?"))
             {
-                string parameterString = raw.Substring(raw.IndexOf("?"));
-                String[] parameters = parameterString.Split('&');
+                string splitString = raw.Substring(raw.IndexOf("?"));
+                parameters = splitString.Split('&');
 
                 if (parameters.Length > 0)
                 {
@@ -54,25 +54,36 @@ namespace MyWebServer
                             parameterDictionary.Add(parameter_nameXvalue[0], parameter_nameXvalue[1]);
                         }
                     }
+
+                    /*
+                     foreach(KeyValuePair<string,string> pair in parameterDictionary)
+                     Console.WriteLine(pair.Key + "<-->" + pair.Value);
+                    */
                 }
             }
 
             if (path.Contains("/"))
             {
-                String[] parameters = path.Substring(1).Split('/');
-                segment = parameters;
+                segments = path.Split('/');
+                segments = (segments.Skip(1)).ToArray();
             }
 
             if (path.Contains("#"))
             {
-                String[] parameters = path.Split('#');
-                path_in = parameters[0];
-                fragment = parameters[1];
+                fragment = path.Substring(path.IndexOf("#")+1);
+                trimmed_path = path.Substring(0, path.IndexOf("#" + fragment));
             }
-            /*
-            foreach(KeyValuePair<string,string> pair in parameterDictionary)
-                Console.WriteLine(pair.Key + "<-->" + pair.Value);
-            */
+            
+            if(segments != null && segments.Length != 0 && segments.Last().Contains("."))
+            {
+                filename = segments.Last();
+                extension = filename.Substring(filename.IndexOf("."));
+            }
+            else
+            {
+                filename = "";
+                extension = "";
+            }
         }
 
         public IDictionary<string, string> Parameter
@@ -87,7 +98,7 @@ namespace MyWebServer
 
         public string Path
         {
-            get { return path_in; }
+            get { return trimmed_path; }
         }
 
         public string RawUrl
@@ -97,12 +108,12 @@ namespace MyWebServer
 
         public string Extension
         {
-            get { throw new NotImplementedException(); }
+            get { return extension; }
         }
 
         public string FileName
         {
-            get { throw new NotImplementedException(); }
+            get { return filename; }
         }
 
         public string Fragment
@@ -112,7 +123,7 @@ namespace MyWebServer
 
         public string[] Segments
         {
-            get { return segment; }
+            get { return segments; }
         }
     }
 }

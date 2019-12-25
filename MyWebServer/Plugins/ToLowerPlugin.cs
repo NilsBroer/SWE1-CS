@@ -24,7 +24,7 @@ namespace MyWebServer.Plugins
 
         public string GetUrl()
         {
-            return "/tolower/";
+            return "/tolower";
         }
 
         public IResponse Handle(IRequest req)
