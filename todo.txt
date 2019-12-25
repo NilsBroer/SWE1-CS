@@ -55,7 +55,9 @@ OTHER:
 
 OPTIONAL:
  - Verschönern (redundantes löschen/vereinen, bessere try & catch (explicit), in Funktionen splitten)
-
+ - HTTP helper should be created as static object in main
+ - HTTP helper should include additional, e.g. methods
+ - try catch on DB-calls
 ---------------------------------------------------------------------
 BEI DISKUSSIONSBEDARF:
 
