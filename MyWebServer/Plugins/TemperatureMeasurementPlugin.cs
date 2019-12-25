@@ -11,7 +11,7 @@ namespace MyWebServer.Plugins
     {
         public float CanHandle(IRequest req)
         {
-            if ((req.Url.Path).ToLower().StartsWith("/temperature") || (req.Url.Path).ToLower().StartsWith("//gettemperature")) //why // and not /
+            if ((req.Url.Path).ToLower().StartsWith("/temperature") || (req.Url.Path).ToLower().StartsWith("/gettemperature")) //why // and not /
             {
                 return 1.0f;
             }
@@ -46,12 +46,12 @@ namespace MyWebServer.Plugins
             Response response = new Response();
             string reqtype = "";
             req.Url.Parameter.TryGetValue("type", out reqtype);
-            bool is_rest = (reqtype != null && (reqtype.Contains("rest") || reqtype.Contains("restles") || req.Url.Segments.Contains("GetTemperature"))); // == instead of contains also possible, GetTemperature is apparently rest, by indication
+            bool is_rest = ((reqtype != null && (reqtype.Contains("rest") || reqtype.Contains("restles")) || (req.Url.Path).ToLower().StartsWith("/gettemperature"))); //GetTemperature is apparently rest, by indication (otherwise I wouldn't use it at all)
 
             if (this.CanHandle(req) > 0.1f && !is_rest)
             {
                 SqlConnection myConnection = new SqlConnection();
-                //TODO: Change so it also works for Chris
+                //TODO: Change so it's also works for Chris
                 myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\Nsync\\Google Drive\\UNI\\Semester 03\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
 
                 Console.WriteLine("Connection created, path: " + myConnection.ConnectionString);
@@ -60,9 +60,8 @@ namespace MyWebServer.Plugins
 
                 string fromString, untilString;
                 DateTime from, until;
-                bool from_is_set = false;
 
-                if (from_is_set = req.Url.Parameter.TryGetValue("from", out fromString))
+                if (req.Url.Parameter.TryGetValue("from", out fromString))
                     from = Convert.ToDateTime(fromString); //can fail, try-catch?
                 else
                     from = DateTime.Now.AddDays(-365*10); //max from (roughly) //restrict to segment /all ?
@@ -138,9 +137,68 @@ namespace MyWebServer.Plugins
             }
             else if(this.CanHandle(req) > 0.1f && is_rest)
             {
-                //TODO: implement rest-handle
-                //TODO: implement rest-handle for single day query from indication
-                response.SetContent("REST-XML goes here");
+                SqlConnection myConnection = new SqlConnection();
+                //TODO: Change so it's also works for Chris
+                myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\Nsync\\Google Drive\\UNI\\Semester 03\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
+
+                Console.WriteLine("Connection created, path: " + myConnection.ConnectionString);
+                myConnection.Open();
+                Console.WriteLine("Connected...");
+
+                string fromString, untilString;
+                DateTime from, until;
+
+                if (req.Url.Parameter.TryGetValue("from", out fromString))
+                    from = Convert.ToDateTime(fromString); //can fail, try-catch?
+                else if((req.Url.Path).ToLower().StartsWith("/gettemperature"))
+                {
+                    string day, month, year;
+                    year = req.Url.Segments.ElementAt(1); // 1 or 0 ?
+                    month = req.Url.Segments.ElementAt(2);
+                    day = req.Url.Segments.ElementAt(3);
+                    Console.WriteLine($"{day}-{month}-{year}");
+
+
+                    from = Convert.ToDateTime($"{day}-{month}-{year}");
+                }
+                else
+                    from = DateTime.Now.AddDays(-365 * 10); //max from (roughly) //restrict to segment /all ?
+                if (req.Url.Parameter.TryGetValue("until", out untilString))
+                    until = Convert.ToDateTime(untilString); //can fail, try-catch?
+                else if ((req.Url.Path).ToLower().StartsWith("/gettemperature"))
+                    until = from.AddMinutes( (24*60) - 1 );
+                else
+                    until = DateTime.Now; //max until
+
+                SqlCommand myCommand = new SqlCommand(null, myConnection);
+
+                myCommand.CommandText = $"SELECT [Time-Stamp], Value FROM Temperature WHERE [Time-Stamp] between @from and @until;";
+                myCommand.Parameters.AddWithValue("@from", from.ToString()); //check
+                myCommand.Parameters.AddWithValue("@until", until.ToString()); //check
+
+                StringBuilder content = new StringBuilder();
+                SqlDataReader reader = myCommand.ExecuteReader();
+                content.Append(@"<? xml version = ""1.0"" encoding = ""UTF-8"" ?>" + "\n");
+                try
+                {
+                    while (reader.Read())
+                    {
+                        content.Append("<entry>" + "\n");
+                        content.Append(String.Format(
+                            "\t" + "<time-stamp>{0}</time-stamp>" +
+                            "\n" +
+                            "\t" + "<temperature>{1}</temperature>",
+                        reader["Time-Stamp"], reader["Value"]));
+                        content.Append("\n" + "</entry>" + "\n");
+                    }
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    reader.Close();
+                }
+
+                response.SetContent(content.ToString());
                 response.ContentType = "text/xml";
                 //response.AddHeader();
 

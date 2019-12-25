@@ -4,16 +4,6 @@ Welche Plugins vom Webserver genutzt werden, muss konfigurierbar sein. Weitere,
 „Dritthersteller Plugins“, müssen ohne neue Kompilierung des Web-Servers hinzugefügt
 werden können.
 
-Temperatur Messung
-(
-• Ein eigener Thread liest laufend einen Sensor aus
-• Für die Übung: Es werden Zufallszahlen oder ein Sinus, etc. berechnet
---> Plugins müssen die Datenbank NICHT verwalten können, TempPlugin selber liest also nur aus
-) 
-• Auf der WebOberfläche können die Messdaten dargestellt werden
-• Bei 10.000 Messwerten muss die Oberfläche zwangsläufig eine Suche bzw. Blättern unterstützen
-• Eine REST Abfrage http://localhost:8080/GetTemperature/2012/09/20 soll alle Temeraturdaten des angegebenen Tages als XML zurück geben. Das XML Format ist frei wählbar.
-
 Navi
 • Als extra Feature, weil das Embedded System Speicherkarten aufnehmen kann
 • In einem Textfeld wird ein Straßenname eingegeben
@@ -60,7 +50,13 @@ Inhalt
 3. Worauf bin ich stolz
 4. Was würde ich das nächste mal anders machen
 
+OTHER:
+ - Nicht implementiertes/funktionierendes von Interfaces überarbeiten (z.B. Segments/file/... in Url)
 
+OPTIONAL:
+ - Verschönern (redundantes löschen/vereinen, bessere try & catch (explicit), in Funktionen splitten)
+
+---------------------------------------------------------------------
 BEI DISKUSSIONSBEDARF:
 
 1.6 Nicht Dokumentierte Anforderungen
