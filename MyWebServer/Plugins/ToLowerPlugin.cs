@@ -31,6 +31,7 @@ namespace MyWebServer.Plugins
         {
             if (this.CanHandle(req) <= 0)
                 throw new Exception("Can't handle this sheet"); //Throwing does not stop running
+
             IResponse response = new Response();
             response.StatusCode = 200;
 
