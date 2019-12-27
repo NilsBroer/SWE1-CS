@@ -25,6 +25,13 @@ namespace MyWebServer
             //AddHeader("Server", "Default Server-Name");  //Testing
         }
 
+        public readonly IDictionary<string, string> ValidContentTypes = new Dictionary<string, string>()
+        {
+            {"html", "text/html; charset=UTF-8"}, {"txt", "text/plain"}, {"css", "text/css"}, {"png", "image/png"},
+            {"gif", "image/gif"}, {"jpg", "image/jpeg"}, {"pdf", "application/pdf"}, {"json", "application/json"},
+            {"js", "application/javascript"}
+        };
+
         /*public Response(Request request)
         {
             this.ServerHeader = "BIF-SWE1-Server";
