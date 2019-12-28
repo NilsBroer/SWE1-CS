@@ -1,51 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.IO;
 using System.Linq;
-using System.Net;
+using System.Text;
+using System.IO;
 using System.Reflection;
+using System.Security.Permissions;
+using MyWebServer.Plugins;
 using BIF.SWE1.Interfaces;
 
 namespace MyWebServer
 {
+
     class PluginManager : IPluginManager
     {
         private List<IPlugin> Plugins_in = new List<IPlugin>();
-        private string pluginPath_in;
 
-        public PluginManager(string pluginPath = "./Plugins")
+        public PluginManager()
         {
-            /*pluginPath_in = pluginPath;
-
-            if (File.Exists(pluginPath)) throw new Exception("Expected directory, not a file");
-            if (!Directory.Exists(pluginPath))
-                throw new Exception("Directory \"" + Path.GetFullPath(pluginPath) + "\" does not exist");
-
-            // load each dll file in Plugin Directory, create plugin, add it to Plugins List
-            string[] fileEntries = Directory.GetFiles(pluginPath, "*.dll");
-
-            IEnumerable<IPlugin> plugins = fileEntries.SelectMany(pluginP =>
+            string myPath = Path.Combine(new string[] { Path.GetDirectoryName(this.GetType().Assembly.Location), "Plugin" });   //aktuelles Directory (deploy) (Hier musst du den Ordner "Plugin" erstellen Nils, einmal im Deploy Ordner einmal bei den unit tests, weist eh
+            string[] dllFileNames = null;
+            if (Directory.Exists(myPath))
             {
-                Assembly pluginAssembly = LoadPlugin(pluginP);
-                return CreatePlugins(pluginAssembly);
-            });
+                dllFileNames = Directory.GetFiles(myPath, "*.dll"); // Alle DLL files finden
+                
+                //Assemblies für dynamisches Laden von Programmteilen (reflections)
+                ICollection<Assembly> assemblies = new List<Assembly>(dllFileNames.Length);
+                foreach (string dllFile in dllFileNames)
+                {
+                    AssemblyName myAssemblyName = AssemblyName.GetAssemblyName(dllFile);
+                    Assembly myAssembly = Assembly.Load(myAssemblyName);
+                    assemblies.Add(myAssembly);
+                }
 
-            foreach (var plugin in plugins)
-            {
-                Add(plugin);
-            }*/
-            MyWebServer.Plugins.TestPlugin test = new Plugins.TestPlugin();
-            MyWebServer.Plugins.NavigationPlugin navi = new Plugins.NavigationPlugin();
-            MyWebServer.Plugins.StaticFilePlugin stat = new Plugins.StaticFilePlugin();
-            MyWebServer.Plugins.TemperatureMeasurementPlugin temp = new Plugins.TemperatureMeasurementPlugin();
-            MyWebServer.Plugins.ToLowerPlugin tlwr = new Plugins.ToLowerPlugin();
+                //den Assemblies verschiedene Plugin-Typen hinzufügen
+                Type pluginType = typeof(IPlugin);
+                ICollection<Type> pluginTypes = new List<Type>();
+                foreach (Assembly assembly in assemblies)
+                {
+                    if (assembly != null)
+                    {
+                        Type[] types = assembly.GetTypes();
+                        foreach (Type type in types)
+                        {
+                            if (type.IsInterface || type.IsAbstract)    //Interfaces ignorieren und Abstracts ignorieren, brauchen ja nur diese Klassen
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                if (type.GetInterface(pluginType.FullName) != null)     //wenn es kein Interface oder Abtract ist, muss es eine Klasse sein, Klasse is gud
+                                {
+                                    pluginTypes.Add(type);
+                                }
+                            }
+                        }
+                    }
+                }
 
-            Add(test);
-            Add(navi);
-            Add(stat);
-            Add(temp);
-            Add(tlwr);
+                foreach (Type type in pluginTypes)
+                {
+                    IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
+                    Add(plugin);    //Plugins hinzufügen
+                }
+            }
         }
 
         public IEnumerable<IPlugin> Plugins => Plugins_in;
