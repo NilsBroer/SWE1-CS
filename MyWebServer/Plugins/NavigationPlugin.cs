@@ -1,170 +1,270 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
+using System.IO;
+using System.Reflection;
+using System.Xml.Linq;
+using System.Web;
 using System.Threading;
-using System.Xml;
+
 using BIF.SWE1.Interfaces;
-using BIF.SWE1;
-using System.Text.Json;
 
 namespace MyWebServer.Plugins
 {
     public class NavigationPlugin : IPlugin
     {
-        private const string Url = "/navi";
-        private readonly Dictionary<string, List<string>> _streetCities = new Dictionary<string, List<string>>();
-        private bool _loadingMap;
-        private readonly Mutex _mtx = new Mutex();
+        //cities sind KEYS und Straßen VALUES
+        private Dictionary<string, List<string>> _WholeMap;
+        private Dictionary<string, List<string>> _NewMap;
+
+        private Mutex _ReadingMutex = new Mutex();
+        private Object _CopyLock = new Object();
+
+        public const string _Url = "/navigation"; //Das in den Browser tippen (duh)
+         
+        private static string _OsmSubDir = "navmaps";   //DIESEN ORDNER erstellen, einmal bei den tests und einmal normal im deploy folder wie immer oder so, kennst dich eh aus ;^)
+        private static string _OsmPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), _OsmSubDir);
+
+        private const float _CanHandleReturn = 1.0f;
+        private const float _CannotHandleReturn = 0.1f;
+
+        public NavigationPlugin()
+        {
+            Directory.CreateDirectory(_OsmPath); //Machma diese Folder 
+        }
 
         public float CanHandle(IRequest req)
         {
-            if (req.IsValid == false)
-                return 0.0f;
-
-            if ((req.Method.Equals("GET") || req.Method.Equals("POST")) && (req.Url.Path.StartsWith("/navigation")))
+            if (req.Url.Path.Contains(_Url))
             {
-                return 0.9f;
+                return _CanHandleReturn;
             }
-
-            return 0.0f;
+            return _CannotHandleReturn;
         }
 
         public IResponse Handle(IRequest req)
         {
-            var resp = new Response();
+            var rsp = new Response();
+            rsp.StatusCode = 200;
 
-            if (_loadingMap)
+            string searchStreet = string.Empty;
+
+            // Straße aus der request holen
             {
-                // Wenn die map gerade geladen wird
-                resp.StatusCode = 503;
-                resp.SetContent(resp.Status);
-                resp.ContentType = resp.ValidContentTypes["txt"];
+                if (req.Headers.ContainsKey("Content-Length"))
+                {
+                    if (req.ContentLength > 7 && req.ContentString.StartsWith("street="))
+                    {
+                        searchStreet = HttpUtility.UrlDecode(req.ContentString.Substring(7));
+                    }
+
+                    else if (!(req.Url.ParameterCount >= 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "true"))
+                    {
+                        rsp.SetContent("Bitte geben Sie eine Anfrage ein");
+                        return rsp;
+                    }
+                }
             }
 
+            List<string> result = new List<string>();
+
+            //Gibts die Map schon im speicher?
+            if (_WholeMap != null && (req.Url.ParameterCount == 0 || (req.Url.ParameterCount == 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "false")))
+            {
+                lock (_CopyLock)
+                {
+                    if (_WholeMap.ContainsKey(searchStreet.ToLower()))
+                    {
+                        result = _WholeMap[searchStreet.ToLower()];
+                    }
+                }
+            }
+
+            // Na? Hol ma aus File (SCHÖN WÄRS ES GEHT NICHT AHHHHH)
+            else if (_ReadingMutex.WaitOne()) // Wait macht dass er sich die ressource krallt, wenn sie besetzt ist gibt es false und wir kommen in das andere else
+            {
+                // Wenn in der URL Update stand, muss man map neu machen
+                if (req.Url.ParameterCount == 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "true")
+                {
+                    List<string> res = ReadWholeFile(saveAll: true);
+                    _ReadingMutex.ReleaseMutex();
+
+                    XElement xmlEles = new XElement("div", "Erfolgreiches Update");
+                    if (res != null && res.Count > 0)
+                    {
+                        xmlEles = new XElement("div", res[0]);
+                    }
+                    rsp.SetContent(xmlEles.ToString());
+                    return rsp;
+                }
+
+                // Straße
+                else if (_WholeMap == null)
+                {
+                    result = ReadWholeFile(searchStreet: searchStreet);
+                }
+
+                _ReadingMutex.ReleaseMutex();
+            }
+
+            // Parsen von Map
             else
             {
-                if (req.Method == "GET" && req.Url.Parameter.ContainsKey("refresh") && req.Url.Parameter["refresh"] == "1")
-                {
-                    // Map neuladen weil User wollte
-                    Thread t = new Thread(LoadMap);
-                    t.Start();
-                    resp.StatusCode = 200;
-                    resp.SetContent(resp.Status);
-                    resp.ContentType = resp.ValidContentTypes["txt"];
-                }
-                else if (req.Method == "POST" && req.ContentLength > 0)
-                {
-                    // Alle Städte mit der Straße
-                    string key = req.ContentString.Split('=').First();
-                    string value = req.ContentString.Split('=').Last();
-
-                    if (key == "street")
-                    {
-                        if (String.IsNullOrEmpty(value))
-                        {
-                            resp.SetContent("{\"msg\": \"Bitte geben Sie eine Anfrage ein\"}");
-                        }
-                        else
-                        {
-                            int amountOfCities = _streetCities.ContainsKey(value) ? _streetCities[value].Count : 0;
-                            resp.SetContent("{\"msg\": \"" + amountOfCities + " Orte gefunden\"}");
-
-                            if (amountOfCities > 0)
-                            {
-                                var citiesJson = JsonSerializer.Serialize(_streetCities[value]);
-                                resp.SetContent("{\"msg\": \"" + amountOfCities + " Orte gefunden\", \"cities\": " + citiesJson + "}");
-                            }
-                        }
-
-                        resp.StatusCode = 200;
-                        resp.ContentType = resp.ValidContentTypes["json"];
-                    }
-                }
-                else
-                {
-                    resp.StatusCode = 400;
-                    resp.SetContent(resp.Status);
-                    resp.ContentType = resp.ValidContentTypes["txt"];
-                }
+                rsp.SetContent("Das NavigationPlugin kann diese Funktion zurzeit nicht ausführen, sie wird bereits benutzt. Bitte versuchen Sie es später noch einmal.");
+                return rsp;
             }
 
-            return resp;
-        }
+            // Daten erfolgreich geparsed, antworten
 
-        public NavigationPlugin() //Ladet Map wenn gestartet wird (data.osm ausm Discord, die einzige die akzeptable Größe hat)
-        {
-            Thread t = new Thread(LoadMap);
-            t.Start();
-        }
-
-        private void LoadMap()
-        {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            lock (_mtx) //Mutex für den Thread
+            XElement xmlElements = new XElement("div", result.Count + " Orte gefunden");
+            if (result.Count > 0)
             {
-                _loadingMap = true;
-                Console.WriteLine("Load map...");   //Das führt der Test auch noch aus, aber anscheinend nicht bis zum Ende
-                var file = "C:\\Users\\genos\\Documents\\FH-Folder\\3rdSem\\DeppatesSWEProjekt\\SWE_CS\\navigation\\data.osm"; //Hier deinen Pfad(?)
-                using (var fs = File.OpenRead(file))
+                xmlElements.Add(new XElement("ul", result.Select(i => new XElement("li", i))));
+            }
+            rsp.SetContent(xmlElements.ToString());
+
+            return rsp;
+        }
+
+        private List<string> ReadWholeFile(bool saveAll = false, string searchStreet = null)
+        {
+            if (saveAll)
+            {
+                if (_NewMap == null)
                 {
-                    var xmlReader = XmlReader.Create(fs, settings);
-                    while (xmlReader.Read())
+                    _NewMap = new Dictionary<string, List<string>>();
+                }
+                _NewMap.Clear();
+            }
+
+            List<string> result = new List<string>();
+
+            try // Black magic or something, I mean WTF
+            {
+                foreach (string file in Directory.GetFiles(_OsmPath).Where(x => x.EndsWith(".osm")))
+                {
+                    using (var fs = File.OpenRead(file))
+                    using (var xml = new System.Xml.XmlTextReader(fs))
                     {
-                        if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "osm")   //Hier ließt er das Dokument durch und speicher alles
+                        while (xml.Read())
                         {
-                            var osm = xmlReader.ReadSubtree();
-                            while (osm.Read())
+                            if (xml.NodeType == System.Xml.XmlNodeType.Element && xml.Name == "osm")
                             {
-                                if (osm.NodeType == XmlNodeType.Element && (osm.Name == "node" || osm.Name == "way"))
-                                {
-                                    string city = "";
-                                    string street = "";
-
-                                    using (var element = osm.ReadSubtree())
-                                    {
-                                        while (element.Read())
-                                        {
-                                            if (element.NodeType == XmlNodeType.Element && element.Name == "tag")
-                                            {
-                                                string tagType = element.GetAttribute("k");
-                                                string value = element.GetAttribute("v");
-
-                                                if (tagType == "addr:city") 
-                                                    city = value;
-
-                                                if (tagType == "addr:street") 
-                                                    street = value;
-                                            }
-                                        }
-                                    }
-
-                                    if (city != "")
-                                    {
-                                        if (_streetCities.ContainsKey(street))
-                                        {
-                                            if (!_streetCities[street].Contains(city))
-                                            {
-                                                _streetCities[street].Add(city);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            _streetCities.Add(street, new List<string> { city });
-                                        }
-                                    }
-                                }
+                                ReadOsm(xml, saveAll, searchStreet).Where(x => !result.Any(y => x == y)).ToList().ForEach(x => result.Add(x));
                             }
-                            
                         }
                     }
-                   
+                }
+            }
+            catch (FileNotFoundException)   //Das bekommst du nicht wenn du Ordner richtig erstellt hast
+            {
+                Console.WriteLine("The OpenStreetMap has not been found (" + _OsmPath + ")");
+            }
+
+            // In den Programm Speicher ziehen
+            if (saveAll)
+            {
+                lock (_CopyLock)
+                {
+                    if (_WholeMap == null)
+                    {
+                        _WholeMap = new Dictionary<string, List<string>>();
+                    }
+                    _WholeMap.Clear();
+
+                    // Copies all the data to the _WholeMap
+                    foreach (var pair in _NewMap)
+                    {
+                        _WholeMap.Add(pair.Key, new List<string>());
+
+                        foreach (var item in pair.Value)
+                        {
+                            _WholeMap[pair.Key].Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (Directory.GetFiles(_OsmPath).Count() == 0)
+            {
+                return new List<string>(new[] { "No OSM Files found." });
+            }
+
+            return result;
+        }
+
+        // Die Funktionen sind aus den Folien, nicht anfassen!
+
+        private List<string> ReadOsm(System.Xml.XmlTextReader xml, bool saveAll, string searchStreet)
+        {
+            List<string> cities = new List<string>();
+
+            using (var osm = xml.ReadSubtree())
+            {
+                while (osm.Read())
+                {
+                    if (osm.NodeType == System.Xml.XmlNodeType.Element && (osm.Name == "node" || osm.Name == "way"))
+                    {
+                        ReadAnyOsmElement(osm, saveAll, ref cities, searchStreet);
+                    }
+                }
+            }
+
+            return cities;
+        }
+
+        private List<string> ReadAnyOsmElement(System.Xml.XmlReader osm, bool saveAll, ref List<string> cities, string searchStreet)
+        {
+            using (var element = osm.ReadSubtree())
+            {
+                string street = null, city = null, postcode = null;
+                while (element.Read())
+                {
+                    if (element.NodeType == System.Xml.XmlNodeType.Element
+                    && element.Name == "tag")
+                    {
+                        switch (element.GetAttribute("k"))
+                        {
+                            case "addr:city":
+                                city = element.GetAttribute("v");
+                                break;
+                            case "addr:postcode":
+                                postcode = element.GetAttribute("v");
+                                break;
+                            case "addr:street":
+                                street = element.GetAttribute("v");
+                                break;
+                        }
+                    }
                 }
 
-                Console.WriteLine("Finished loading!");
-                _loadingMap = false;
+                //if (postcode != null && city != null)
+                //    city = city + ", " + postcode;
+                if (!string.IsNullOrEmpty(street) && !string.IsNullOrEmpty(city))
+                {
+                    if (saveAll)
+                    {
+
+                        if (_NewMap.ContainsKey(street.ToLower()) && !_NewMap[street.ToLower()].Contains(city))
+                        {
+                            _NewMap[street.ToLower()].Add(city);
+                        }
+                        else if (!_NewMap.ContainsKey(street.ToLower()))
+                        {
+                            _NewMap.Add(street.ToLower(), new List<string>(new[] { city }));
+                        }
+                    }
+                    else
+                    {
+                        if (!cities.Contains(city) && street.ToLower() == searchStreet.ToLower())
+                        {
+                            cities.Add(city);
+                        }
+                    }
+                }
             }
+
+            return cities;
         }
     }
 }
