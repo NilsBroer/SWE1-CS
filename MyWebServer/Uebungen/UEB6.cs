@@ -26,8 +26,7 @@ namespace Uebungen
 
         public string GetNaviUrl()
         {
-            NavigationPlugin plugin = new NavigationPlugin();
-            return plugin.GetUrl();
+            return "/navigation";
         }
 
         public IPlugin GetNavigationPlugin()
