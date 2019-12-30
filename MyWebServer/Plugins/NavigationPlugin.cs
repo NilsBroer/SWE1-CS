@@ -19,23 +19,24 @@ namespace MyWebServer.Plugins
 
         private Mutex _ReadingMutex = new Mutex();
         private Object _CopyLock = new Object();
-
-        public const string _Url = "/navigation"; //Das in den Browser tippen (duh)
          
-        private static string _OsmSubDir = "navmaps";   //DIESEN ORDNER erstellen, einmal bei den tests und einmal normal im deploy folder wie immer oder so, kennst dich eh aus ;^)
-        private static string _OsmPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), _OsmSubDir);
+        //private static string _OsmSubDir = "navmaps";   //DIESEN ORDNER erstellen, einmal bei den tests und einmal normal im deploy folder wie immer oder so, kennst dich eh aus ;^)
+        
+        //private static string _OsmPath = @"C:\Users\Nsync\Google Drive\UNI\Semester 03\SWE_CS\SWE1-CS\Libs\";
+        //private static string _OsmPatch = @""; //Your Hard-Link goes here for now, Chris - Nicht vergessen meinen auszukommentieren
+        private static string _OsmPath = @"C:\ProgramData\SWE01\"; //use this one for running tests, to exclude the read of osm-file(s) for runtime-reasons
 
         private const float _CanHandleReturn = 1.0f;
         private const float _CannotHandleReturn = 0.1f;
 
         public NavigationPlugin()
         {
-            Directory.CreateDirectory(_OsmPath); //Machma diese Folder 
+            Directory.CreateDirectory(_OsmPath); //Machma diese Folder, wenn gibt noch nicht
         }
 
         public float CanHandle(IRequest req)
         {
-            if (req.Url.Path.Contains(_Url))
+            if (req.Url.Path.Contains(this.GetUrl()))
             {
                 return _CanHandleReturn;
             }
@@ -51,18 +52,20 @@ namespace MyWebServer.Plugins
 
             // Straße aus der request holen
             {
-                if (req.Headers.ContainsKey("Content-Length"))
+                if (req.Url.Parameter.ContainsKey("street")) //url-call
                 {
-                    if (req.ContentLength > 7 && req.ContentString.StartsWith("street="))
-                    {
-                        searchStreet = HttpUtility.UrlDecode(req.ContentString.Substring(7));
-                    }
+                    req.Url.Parameter.TryGetValue("street", out searchStreet);
+                }
 
-                    else if (!(req.Url.ParameterCount >= 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "true"))
-                    {
-                        rsp.SetContent("Bitte geben Sie eine Anfrage ein");
-                        return rsp;
-                    }
+                else if (req.ContentString.StartsWith("street=") && req.ContentString.Length != "street=".Length) //unit-test or content-call
+                {
+                    searchStreet = HttpUtility.UrlDecode(req.ContentString.Substring(7));
+                }
+
+                else if (!(req.Url.ParameterCount >= 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "true")) //No
+                {
+                    rsp.SetContent("Bitte geben Sie eine Anfrage ein");
+                    return rsp;
                 }
             }
 
@@ -80,7 +83,7 @@ namespace MyWebServer.Plugins
                 }
             }
 
-            // Na? Hol ma aus File (SCHÖN WÄRS ES GEHT NICHT AHHHHH)
+            // Na? Hol ma aus File //fixed: findet das file :) LG Nils
             else if (_ReadingMutex.WaitOne()) // Wait macht dass er sich die ressource krallt, wenn sie besetzt ist gibt es false und wir kommen in das andere else
             {
                 // Wenn in der URL Update stand, muss man map neu machen
@@ -265,6 +268,11 @@ namespace MyWebServer.Plugins
             }
 
             return cities;
+        }
+
+        public string GetUrl()
+        {
+            return "/navigation";
         }
     }
 }
