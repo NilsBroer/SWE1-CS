@@ -4,11 +4,26 @@ using System.Linq;
 using System.Text;
 using BIF.SWE1.Interfaces;
 using System.Data.SqlClient;
+using DEMO;
+using System.Threading;
 
 namespace MyWebServer.Plugins
 {
-    class TemperatureMeasurementPlugin : IPlugin
+    public class TemperatureMeasurementPlugin : IPlugin
     {
+        public TemperatureMeasurementPlugin()
+        {
+            Thread measure_thread = new Thread(() =>
+            {
+                while (true)
+                {
+                    this.measureTemperature();
+                    Thread.Sleep(15000); //inefficient
+                }
+                //Never stops, while server is running
+            });
+            measure_thread.Start();
+        }
         public float CanHandle(IRequest req)
         {
             if ((req.Url.Path).ToLower().StartsWith("/temperature") || (req.Url.Path).ToLower().StartsWith("/gettemperature")) //why // and not /
@@ -207,6 +222,11 @@ namespace MyWebServer.Plugins
             else
                 response.StatusCode = 500; //or 400
             return response;
+        }
+        
+        public void measureTemperature()
+        {
+            DEMO.DB_Populator measurer = new DEMO.DB_Populator(1);
         }
     }
 }

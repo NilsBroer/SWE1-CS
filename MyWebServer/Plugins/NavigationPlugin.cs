@@ -124,7 +124,11 @@ namespace MyWebServer.Plugins
             {
                 xmlElements.Add(new XElement("ul", result.Select(i => new XElement("li", i))));
             }
-            rsp.SetContent(xmlElements.ToString());
+
+            //if (!(result.Contains("No OSM Files found.")))
+                rsp.SetContent(xmlElements.ToString());
+            //else
+                //rsp.SetContent("No OSM File(s) found.");
 
             return rsp;
         }
