@@ -17,8 +17,8 @@ namespace MyWebServer
         {
             this.Headers = new Dictionary<string, string>
             {
-                {"cType", ""},  //echter name
-                {"cLength", ""}
+                {"ContentType", ""},  //echter name
+                {"ContentLength", ""}
             };
             this.ServerHeader = "BIF-SWE1-Server";
 
@@ -38,8 +38,8 @@ namespace MyWebServer
 
             this.Headers = new Dictionary<string, string>
             {
-                {"cType", ""},
-                {"cLength", ""}
+                {"ContentType", ""},
+                {"ContentLength", ""}
             };
 
             //AddHeader("Server", "Default Server-Name");   //Testing
@@ -51,7 +51,7 @@ namespace MyWebServer
             {
                 try
                 {
-                    return Int32.Parse(this.Headers["cLength"]);
+                    return Int32.Parse(this.Headers["ContentLength"]);
                 }
                 catch (FormatException fe)
                 {
@@ -62,7 +62,7 @@ namespace MyWebServer
 
         public string ContentType
         {
-            get => this.Headers["cType"]; set => this.Headers["cType"] = value;
+            get => this.Headers["ContentType"]; set => this.Headers["ContentType"] = value;
         }
 
         public IDictionary<string, string> Headers { get; }
@@ -122,7 +122,7 @@ namespace MyWebServer
             if (this.StatusCode != 404 && this.content != null)  //Content hier
             {
                 BinaryWriter bw = new BinaryWriter(network);
-                bw.Write(this.content);
+             bw.Write(this.content);
                 bw.Flush();
             }
         }
@@ -135,7 +135,7 @@ namespace MyWebServer
         public void SetContent(byte[] content)
         {
             this.content = content;
-            this.Headers["cLength"] = this.content.Length.ToString();   //direkt die eigenschaft
+            this.Headers["ContentLength"] = this.content.Length.ToString();   //direkt die eigenschaft
         }
 
         public void SetContent(Stream stream)

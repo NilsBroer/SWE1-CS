@@ -1,64 +1,12 @@
-SWE - TO DO (abgesehen von Units-Tests):
-
-Welche Plugins vom Webserver genutzt werden, muss konfigurierbar sein. Weitere,
-„Dritthersteller Plugins“, müssen ohne neue Kompilierung des Web-Servers hinzugefügt
-werden können.
-
-Navi
-• Als extra Feature, weil das Embedded System Speicherkarten aufnehmen kann
-• In einem Textfeld wird ein Straßenname eingegeben
-• Das Plugin gibt anschließend eine Liste aller Orte aus, in denen die Straße existiert.
-– Arbeiter Strandbad Straße
-– -> In Wien.
-• Eine Karte mit allen Straßen sowie Orten kann von OpenStreetmap bezogen werden.
-– Die Datei müsste ein ca. 4 GB großes XML Dokument sein
-– http://download.geofabrik.de/osm/europe/
-– Es genügt, wenn einer/eine die Datei organisiert und allen anderen weitergibt.
-• Eine eigene Seite im Navi Plugin kann den Befehl: „Staßenkarte neu aufbereiten“ auslösen
-– Dieser Befehlt liest die OpenStreetmap Karte (neu) ein und erstellt eine interne Straßen
-<-> Ort Zuordnung im Hauptspeicher (z.B. in einem Dictionary oder HashTable). Wer
-möchte, kann das auch in der Datenbank speichern, ist aber nicht Pflicht.
-– Dies ist mittels SAX Parsers zu realisieren
-– Es genügen die POI Tags! Keine geografischen Zuordnungen durchführen!
-– XPath: //node|way/tag[@k,@v]
-– Während dieser Aufbereitung darf das Plugin keine anderen Abfragen annehmen dürfen.
-Es muss stattdessen eine Warnmeldung ausgeben (Multiuserfähigkeit)
-
-ToLower
-• In einer textarea kann beliebig langer Text eingegeben werden
-• Ein Submit-Button sendet den Text mittels POST Request an den Server
-
-1.4 20 Unit Tests
-Implementieren Sie 20 eigene Unit Tests. Testen Sie z.B. Ihre Plugins genauer.
-
-1.5 JavaDoc/Doxygen/XML Documentation Comments
-Versehen Sie alle public Klassen/Methoden/Eigenschaften mit Kommentaren, aus denen mittels
-Tools eine API Dokumentation erstellt werden kann. Führen Sie das Tool Ihrer Wahl aus und
-zeigen Sie uns das Ergebnis.
-Wenn Sie unsicher sind bzgl. des Tools dann fragen Sie uns.
-Mögliche Tools:
-• Doxygen
-• Sandcastle
-Falls Sie ein anderes Tool nutzen möchten, können Sie dies sehr gerne tun. Evtl. sprechen Sie
-sich mit uns ab.
-
-1.7 Dokumentation
-Ausgedruckt 1 ca. A4 Seite lang.
-Inhalt
-1. Benutzerhandbuch – Wie wird die Applikation verwendet
-2. Lösungsbeschreibung – Wie wurde die Aufgabe gelöst
-3. Worauf bin ich stolz
-4. Was würde ich das nächste mal anders machen
-
-OTHER:
- - Nicht implementiertes/funktionierendes von Interfaces überarbeiten (z.B. Segments/file/... in Url)
+ - 20 Units Tests
+ - 1x umschreiben
 
 OPTIONAL:
  - Verschönern (redundantes löschen/vereinen, bessere try & catch (explicit), in Funktionen splitten)
  - HTTP helper should be created as static object in main
  - HTTP helper should include additional, e.g. methods
- - try catch on DB-calls
----------------------------------------------------------------------
+
+----------------------------------------
 BEI DISKUSSIONSBEDARF:
 
 1.6 Nicht Dokumentierte Anforderungen

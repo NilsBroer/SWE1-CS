@@ -72,12 +72,18 @@
     </Compile>
     <Compile Include="HTTPhelper.cs" />
     <Compile Include="PluginManager.cs" />
-    <Compile Include="Plugins\NavigationPlugin.cs" />
-    <Compile Include="Plugins\StaticFilePlugin.cs" />
-    <Compile Include="Plugins\TemperatureMeasurementPlugin.cs" />
-    <Compile Include="Plugins\TestPlugin.cs" />
-    <Compile Include="Plugins\ToLowerPlugin.cs" />
+    <Compile Include="Plugins\cs\marked.cs" />
+    <Compile Include="Plugins\cs\NavigationPlugin.cs" />
+    <Compile Include="Plugins\cs\StaticFilePlugin.cs" />
+    <Compile Include="Plugins\cs\TemperatureMeasurementPlugin.cs" />
+    <Compile Include="Plugins\cs\TestPlugin.cs" />
+    <Compile Include="Plugins\cs\ToLowerPlugin.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Uebungen\UEB7_custom.cs" />
@@ -94,9 +100,14 @@
     <None Include="my.runsettings">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="Plugins\dll\" />
+    <Folder Include="Plugins\exe\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
