@@ -94,10 +94,11 @@ namespace MyWebServer
             Request request = new Request(nstream);
             PluginManager pluginmanager = new PluginManager();
             Console.WriteLine(request.toString());
-            var plugin = pluginmanager.getRequiredPlugin(request);
+            IPlugin plugin = pluginmanager.GetBestPlugin(request);
             if(plugin!=null)
             {
-                (plugin.Handle(request)).Send(nstream);
+                var response = plugin.Handle(request);
+                response.Send(nstream);
             }
             nstream.Close();
             client.Close();

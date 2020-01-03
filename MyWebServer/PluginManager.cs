@@ -4,15 +4,21 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using BIF.SWE1.Interfaces;
+using System.Reflection;
+using MyWebServer.Plugins;
 
 namespace MyWebServer
 {
     class PluginManager : IPluginManager
     {
-        List<IPlugin> Plugins_in = new List<IPlugin>();
+        private List<IPlugin> Plugins_in = new List<IPlugin>();
+        private static string _PluginFolder = "Plugins";
+        private static string _ExecutionLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        public PluginManager()
+        /*
+        public PluginManager(bool a)
         {
+            
             MyWebServer.Plugins.TestPlugin test = new Plugins.TestPlugin();
             MyWebServer.Plugins.NavigationPlugin navi = new Plugins.NavigationPlugin();
             MyWebServer.Plugins.StaticFilePlugin stat = new Plugins.StaticFilePlugin();
@@ -24,6 +30,51 @@ namespace MyWebServer
             Add(stat);
             Add(temp);
             Add(tlwr);
+            
+            
+            string path = @"C:\Users\Nsync\Google Drive\UNI\Semester 03\SWE_CS\SWE1-CS\MyWebServer\Plugins";
+            string[] dll_plugin_strings = Directory.GetFiles(path + "/dll", "*.dll");
+            IPlugin [] dll_plugins = new IPlugin[dll_plugin_strings.Length];
+            dll_plugins = (
+                from file in dll_plugin_strings                 //For each .dll-file found
+                let assembly = Assembly.LoadFile(file)          //load the assembly
+                from type in assembly.GetExportedTypes()        //for every type in the assembly
+                where typeof(IPlugin).IsAssignableFrom(type)    //where said type implements the interface
+                select (IPlugin)Activator.CreateInstance(type)  //create an instance
+                ).ToArray();                                    //and materialize all to an array
+            foreach(var plugin in dll_plugins)
+            {
+                Console.WriteLine("Plugin: " + plugin.ToString());
+                Add(plugin);
+            }
+        }
+*/
+
+        public PluginManager()
+        {
+
+            Console.WriteLine(_ExecutionLocation + _PluginFolder);
+            // create Plugins from exe
+            var lst = Directory.GetFiles(_ExecutionLocation)
+                .Where(i => new[] { ".dll", ".exe" }.Contains(Path.GetExtension(i)))
+                .SelectMany(i => Assembly.LoadFrom(i).GetTypes())
+                .Where(myType => myType.IsClass
+                              && !myType.IsAbstract
+                              && myType.GetCustomAttributes(true).Any(x => x.GetType() == typeof(marked))
+                              && myType.GetInterfaces().Any(i => i == typeof(IPlugin)));
+            
+            // Add plugins from plugin folder
+            lst = lst.Concat((Directory.GetFiles(Path.Combine(_ExecutionLocation, _PluginFolder)))
+                .Where(i => new[] { ".dll", ".exe" }.Contains(Path.GetExtension(i)))
+                .SelectMany(i => Assembly.LoadFrom(i).GetTypes())
+                .Where(myType => myType.IsClass
+                              && !myType.IsAbstract
+                              && myType.GetInterfaces().Any(i => i == typeof(IPlugin))));
+            
+            foreach (Type type in lst)
+            {
+                Add((IPlugin)Activator.CreateInstance(type));
+            }
         }
 
         public IEnumerable<IPlugin> Plugins => Plugins_in;
@@ -50,7 +101,7 @@ namespace MyWebServer
                 Plugins_in.Add(pluginObj);
         }
 
-        public IPlugin getRequiredPlugin (IRequest req)
+        public IPlugin GetBestPlugin (IRequest req)
         {
             IPlugin plug = null;
             float highest = 0;
