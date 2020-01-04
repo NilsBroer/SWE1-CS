@@ -1,0 +1,80 @@
+\hypertarget{class_my_web_server_1_1_plugins_1_1_navigation_plugin}{}\doxysection{My\+Web\+Server.\+Plugins.\+Navigation\+Plugin Class Reference}
+\label{class_my_web_server_1_1_plugins_1_1_navigation_plugin}\index{MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}}
+
+
+Navigation Plugin takes a Street and reads an O\+SM Map to search for matching cities  
+
+
+Inheritance diagram for My\+Web\+Server.\+Plugins.\+Navigation\+Plugin\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_web_server_1_1_plugins_1_1_navigation_plugin}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_navigation_plugin_addee96d2dab1181af237eb5a5e8b9da1}{Navigation\+Plugin}} ()
+\begin{DoxyCompactList}\small\item\em Constructor, also creates path for the O\+SM files \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_navigation_plugin_ab88c6f08886ffde8d14c2e33de893398}{Can\+Handle}} (I\+Request req)
+\begin{DoxyCompactList}\small\item\em Checks whether the Plugin handles a specific \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+I\+Response \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a7cf9476e87f1497d97c2ec96f4fdf0b5}{Handle}} (I\+Request req)
+\begin{DoxyCompactList}\small\item\em Handles a healthy request, can save the map in the program\textquotesingle{}s memory or parse through the O\+SM file to find cities \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a1583ca447a5a615a20b2afbdbf38d569}{Get\+Url}} ()
+\begin{DoxyCompactList}\small\item\em Format of the Plugin\textquotesingle{}s accepted U\+RL \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Navigation Plugin takes a Street and reads an O\+SM Map to search for matching cities 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_navigation_plugin_addee96d2dab1181af237eb5a5e8b9da1}\label{class_my_web_server_1_1_plugins_1_1_navigation_plugin_addee96d2dab1181af237eb5a5e8b9da1}} 
+\index{MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}!NavigationPlugin@{NavigationPlugin}}
+\index{NavigationPlugin@{NavigationPlugin}!MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}}
+\doxysubsubsection{\texorpdfstring{NavigationPlugin()}{NavigationPlugin()}}
+{\footnotesize\ttfamily My\+Web\+Server.\+Plugins.\+Navigation\+Plugin.\+Navigation\+Plugin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor, also creates path for the O\+SM files 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_navigation_plugin_ab88c6f08886ffde8d14c2e33de893398}\label{class_my_web_server_1_1_plugins_1_1_navigation_plugin_ab88c6f08886ffde8d14c2e33de893398}} 
+\index{MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}!CanHandle@{CanHandle}}
+\index{CanHandle@{CanHandle}!MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}}
+\doxysubsubsection{\texorpdfstring{CanHandle()}{CanHandle()}}
+{\footnotesize\ttfamily float My\+Web\+Server.\+Plugins.\+Navigation\+Plugin.\+Can\+Handle (\begin{DoxyParamCaption}\item[{I\+Request}]{req }\end{DoxyParamCaption})}
+
+
+
+Checks whether the Plugin handles a specific \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a1583ca447a5a615a20b2afbdbf38d569}\label{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a1583ca447a5a615a20b2afbdbf38d569}} 
+\index{MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}!GetUrl@{GetUrl}}
+\index{GetUrl@{GetUrl}!MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}}
+\doxysubsubsection{\texorpdfstring{GetUrl()}{GetUrl()}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Plugins.\+Navigation\+Plugin.\+Get\+Url (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Format of the Plugin\textquotesingle{}s accepted U\+RL 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a7cf9476e87f1497d97c2ec96f4fdf0b5}\label{class_my_web_server_1_1_plugins_1_1_navigation_plugin_a7cf9476e87f1497d97c2ec96f4fdf0b5}} 
+\index{MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}!Handle@{Handle}}
+\index{Handle@{Handle}!MyWebServer.Plugins.NavigationPlugin@{MyWebServer.Plugins.NavigationPlugin}}
+\doxysubsubsection{\texorpdfstring{Handle()}{Handle()}}
+{\footnotesize\ttfamily I\+Response My\+Web\+Server.\+Plugins.\+Navigation\+Plugin.\+Handle (\begin{DoxyParamCaption}\item[{I\+Request}]{req }\end{DoxyParamCaption})}
+
+
+
+Handles a healthy request, can save the map in the program\textquotesingle{}s memory or parse through the O\+SM file to find cities 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/genos/\+Documents/\+F\+H-\/\+Folder/3rd\+Sem/\+Deppates\+S\+W\+E\+Projekt/\+S\+W\+E\+\_\+\+C\+S/\+S\+W\+E1-\/\+C\+S/\+My\+Web\+Server/\+Plugins/cs/Navigation\+Plugin.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,234 @@
+\hypertarget{class_my_web_server_1_1_response}{}\doxysection{My\+Web\+Server.\+Response Class Reference}
+\label{class_my_web_server_1_1_response}\index{MyWebServer.Response@{MyWebServer.Response}}
+
+
+The \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} Part of the H\+T\+TP Protocol  
+
+
+Inheritance diagram for My\+Web\+Server.\+Response\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_web_server_1_1_response}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_web_server_1_1_response_ac9a64bb485c35831a9e89c5e6874003d}{Response}} ()
+\begin{DoxyCompactList}\small\item\em Constructor, Adds \mbox{\hyperlink{class_my_web_server_1_1_server}{Server}} Header and Creates Header Dictionary \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_response_a2cff1a1aaa2d62931e7ef80d462ec757}{Add\+Header}} (string header, string value)
+\begin{DoxyCompactList}\small\item\em Adds a Header to the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_response_a7fd4a1be5d48b2cdf3dc61d9a437bb4d}{Send}} (Stream network)
+\begin{DoxyCompactList}\small\item\em Sends the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_response_a9188d8b75fb30cdfa984b4166a2d9b57}{Set\+Content}} (string \mbox{\hyperlink{class_my_web_server_1_1_response_a0b655f039df24a681139d193c591c33d}{content}})
+\begin{DoxyCompactList}\small\item\em Converts a given string to Bytes to be Set by another Method \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_response_aa124bb70edfdf5f979987603bb7c21da}{Set\+Content}} (byte\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_my_web_server_1_1_response_a0b655f039df24a681139d193c591c33d}{content}})
+\begin{DoxyCompactList}\small\item\em Sets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} with given Byte\+Array \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_response_a397fbd8ab7a8811ef1db5d1cbb7d2a06}{Set\+Content}} (Stream stream)
+\begin{DoxyCompactList}\small\item\em Sets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} by Converting from Stream and Passing it as a Byte\+Array \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_my_web_server_1_1_response_a378ea72a2c0cbd8a4059c8ce54bd0bac}{statuscode\+\_\+in}}
+\begin{DoxyCompactList}\small\item\em Status\+Code Field \end{DoxyCompactList}\item 
+byte\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_my_web_server_1_1_response_a0b655f039df24a681139d193c591c33d}{content}}
+\begin{DoxyCompactList}\small\item\em Content as Byte Array \end{DoxyCompactList}\item 
+readonly I\+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_my_web_server_1_1_response_ac9b7938b82290c0324973e41e8753673}{Valid\+Content\+Types}}
+\begin{DoxyCompactList}\small\item\em List of all accepted Content Types \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_my_web_server_1_1_response_a913f99de8087b62cf81c9204230cebab}{Content\+Length}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Length of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}}\textquotesingle{}S Content \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_response_a1e72af62434d94b54107f57db2caf7cd}{Content\+Type}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Type of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}}\textquotesingle{}s Content \end{DoxyCompactList}\item 
+I\+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_my_web_server_1_1_response_a0a43738e787f48643e15db2ad8e3a34d}{Headers}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets all Headers of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_my_web_server_1_1_response_a89a61be3c48183616372e75922fea1be}{Status\+Code}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Sets the Status Code of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_response_ae0ad903cde72313e37a7488c933a8298}{Status}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the Status Description of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_response_ab7fb63c9e740ddbbf233ebf4157c2252}{Server\+Header}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_my_web_server_1_1_server}{Server}} Header Already Added, can be disregarded \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} Part of the H\+T\+TP Protocol 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_response_ac9a64bb485c35831a9e89c5e6874003d}\label{class_my_web_server_1_1_response_ac9a64bb485c35831a9e89c5e6874003d}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!Response@{Response}}
+\index{Response@{Response}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{Response()}{Response()}}
+{\footnotesize\ttfamily My\+Web\+Server.\+Response.\+Response (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor, Adds \mbox{\hyperlink{class_my_web_server_1_1_server}{Server}} Header and Creates Header Dictionary 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a2cff1a1aaa2d62931e7ef80d462ec757}\label{class_my_web_server_1_1_response_a2cff1a1aaa2d62931e7ef80d462ec757}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!AddHeader@{AddHeader}}
+\index{AddHeader@{AddHeader}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{AddHeader()}{AddHeader()}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Response.\+Add\+Header (\begin{DoxyParamCaption}\item[{string}]{header,  }\item[{string}]{value }\end{DoxyParamCaption})}
+
+
+
+Adds a Header to the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a7fd4a1be5d48b2cdf3dc61d9a437bb4d}\label{class_my_web_server_1_1_response_a7fd4a1be5d48b2cdf3dc61d9a437bb4d}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!Send@{Send}}
+\index{Send@{Send}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{Send()}{Send()}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Response.\+Send (\begin{DoxyParamCaption}\item[{Stream}]{network }\end{DoxyParamCaption})}
+
+
+
+Sends the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_aa124bb70edfdf5f979987603bb7c21da}\label{class_my_web_server_1_1_response_aa124bb70edfdf5f979987603bb7c21da}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!SetContent@{SetContent}}
+\index{SetContent@{SetContent}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{SetContent()}{SetContent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Response.\+Set\+Content (\begin{DoxyParamCaption}\item[{byte\mbox{[}$\,$\mbox{]}}]{content }\end{DoxyParamCaption})}
+
+
+
+Sets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} with given Byte\+Array 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a397fbd8ab7a8811ef1db5d1cbb7d2a06}\label{class_my_web_server_1_1_response_a397fbd8ab7a8811ef1db5d1cbb7d2a06}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!SetContent@{SetContent}}
+\index{SetContent@{SetContent}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{SetContent()}{SetContent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Response.\+Set\+Content (\begin{DoxyParamCaption}\item[{Stream}]{stream }\end{DoxyParamCaption})}
+
+
+
+Sets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} by Converting from Stream and Passing it as a Byte\+Array 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a9188d8b75fb30cdfa984b4166a2d9b57}\label{class_my_web_server_1_1_response_a9188d8b75fb30cdfa984b4166a2d9b57}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!SetContent@{SetContent}}
+\index{SetContent@{SetContent}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{SetContent()}{SetContent()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Response.\+Set\+Content (\begin{DoxyParamCaption}\item[{string}]{content }\end{DoxyParamCaption})}
+
+
+
+Converts a given string to Bytes to be Set by another Method 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a0b655f039df24a681139d193c591c33d}\label{class_my_web_server_1_1_response_a0b655f039df24a681139d193c591c33d}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!content@{content}}
+\index{content@{content}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{content}{content}}
+{\footnotesize\ttfamily byte \mbox{[}$\,$\mbox{]} My\+Web\+Server.\+Response.\+content}
+
+
+
+Content as Byte Array 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a378ea72a2c0cbd8a4059c8ce54bd0bac}\label{class_my_web_server_1_1_response_a378ea72a2c0cbd8a4059c8ce54bd0bac}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!statuscode\_in@{statuscode\_in}}
+\index{statuscode\_in@{statuscode\_in}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{statuscode\_in}{statuscode\_in}}
+{\footnotesize\ttfamily int My\+Web\+Server.\+Response.\+statuscode\+\_\+in}
+
+
+
+Status\+Code Field 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_ac9b7938b82290c0324973e41e8753673}\label{class_my_web_server_1_1_response_ac9b7938b82290c0324973e41e8753673}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!ValidContentTypes@{ValidContentTypes}}
+\index{ValidContentTypes@{ValidContentTypes}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{ValidContentTypes}{ValidContentTypes}}
+{\footnotesize\ttfamily readonly I\+Dictionary$<$string, string$>$ My\+Web\+Server.\+Response.\+Valid\+Content\+Types}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \textcolor{keyword}{new} Dictionary<string, string>()}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"html"}, \textcolor{stringliteral}{"text/html; charset=UTF-\/8"}\}, \{\textcolor{stringliteral}{"txt"}, \textcolor{stringliteral}{"text/plain"}\}, \{\textcolor{stringliteral}{"css"}, \textcolor{stringliteral}{"text/css"}\}, \{\textcolor{stringliteral}{"png"}, \textcolor{stringliteral}{"image/png"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"gif"}, \textcolor{stringliteral}{"image/gif"}\}, \{\textcolor{stringliteral}{"jpg"}, \textcolor{stringliteral}{"image/jpeg"}\}, \{\textcolor{stringliteral}{"pdf"}, \textcolor{stringliteral}{"application/pdf"}\}, \{\textcolor{stringliteral}{"json"}, \textcolor{stringliteral}{"application/json"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"js"}, \textcolor{stringliteral}{"application/javascript"}\}}
+\DoxyCodeLine{        \}}
+
+\end{DoxyCode}
+
+
+List of all accepted Content Types 
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a913f99de8087b62cf81c9204230cebab}\label{class_my_web_server_1_1_response_a913f99de8087b62cf81c9204230cebab}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!ContentLength@{ContentLength}}
+\index{ContentLength@{ContentLength}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{ContentLength}{ContentLength}}
+{\footnotesize\ttfamily int My\+Web\+Server.\+Response.\+Content\+Length\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Length of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}}\textquotesingle{}S Content 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a1e72af62434d94b54107f57db2caf7cd}\label{class_my_web_server_1_1_response_a1e72af62434d94b54107f57db2caf7cd}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!ContentType@{ContentType}}
+\index{ContentType@{ContentType}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{ContentType}{ContentType}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Response.\+Content\+Type\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Type of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}}\textquotesingle{}s Content 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a0a43738e787f48643e15db2ad8e3a34d}\label{class_my_web_server_1_1_response_a0a43738e787f48643e15db2ad8e3a34d}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!Headers@{Headers}}
+\index{Headers@{Headers}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{Headers}{Headers}}
+{\footnotesize\ttfamily I\+Dictionary$<$string, string$>$ My\+Web\+Server.\+Response.\+Headers\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets all Headers of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_ab7fb63c9e740ddbbf233ebf4157c2252}\label{class_my_web_server_1_1_response_ab7fb63c9e740ddbbf233ebf4157c2252}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!ServerHeader@{ServerHeader}}
+\index{ServerHeader@{ServerHeader}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{ServerHeader}{ServerHeader}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Response.\+Server\+Header\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+\mbox{\hyperlink{class_my_web_server_1_1_server}{Server}} Header Already Added, can be disregarded 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_ae0ad903cde72313e37a7488c933a8298}\label{class_my_web_server_1_1_response_ae0ad903cde72313e37a7488c933a8298}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!Status@{Status}}
+\index{Status@{Status}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{Status}{Status}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Response.\+Status\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the Status Description of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_response_a89a61be3c48183616372e75922fea1be}\label{class_my_web_server_1_1_response_a89a61be3c48183616372e75922fea1be}} 
+\index{MyWebServer.Response@{MyWebServer.Response}!StatusCode@{StatusCode}}
+\index{StatusCode@{StatusCode}!MyWebServer.Response@{MyWebServer.Response}}
+\doxysubsubsection{\texorpdfstring{StatusCode}{StatusCode}}
+{\footnotesize\ttfamily int My\+Web\+Server.\+Response.\+Status\+Code\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Sets the Status Code of the \mbox{\hyperlink{class_my_web_server_1_1_response}{Response}} 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/genos/\+Documents/\+F\+H-\/\+Folder/3rd\+Sem/\+Deppates\+S\+W\+E\+Projekt/\+S\+W\+E\+\_\+\+C\+S/\+S\+W\+E1-\/\+C\+S/\+My\+Web\+Server/Response.\+cs\end{DoxyCompactItemize}

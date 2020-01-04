@@ -79,13 +79,9 @@
     <Compile Include="Plugins\cs\TestPlugin.cs" />
     <Compile Include="Plugins\cs\ToLowerPlugin.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="SoftLock.cs" />
     <Compile Include="Uebungen\UEB7_custom.cs" />
     <Compile Include="Uebungen\UEB1.cs" />
     <Compile Include="Uebungen\UEB2.cs" />
@@ -100,14 +96,11 @@
     <None Include="my.runsettings">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\dll\" />
     <Folder Include="Plugins\exe\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -1,0 +1,113 @@
+\hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin}{}\doxysection{My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin Class Reference}
+\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin}\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+
+
+Shows a Collection of Temperature data as X\+ML if a R\+E\+ST call is made, or as a list if not  
+
+
+Inheritance diagram for My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7637c7f1794089a42eb48378feb09144}{Can\+Handle}} (I\+Request req)
+\begin{DoxyCompactList}\small\item\em Determines if the Plugin Handles a certain \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_af0c6b189c86cf0d7d6ea362e912b975e}{Get\+Url}} ()
+\begin{DoxyCompactList}\small\item\em U\+RL accepted by the Plugin \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a9148f3a520efcb7b04ed78782cb65918}{Get\+Url}} (Date\+Time from, Date\+Time until)
+\begin{DoxyCompactList}\small\item\em U\+RL accepted by the Plugin \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a922ac91853257974d0dfdaba49d57a68}{Get\+Url}} (Date\+Time day)
+\begin{DoxyCompactList}\small\item\em U\+RL accepted by the Plugin \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_ad800a8a367de7d104a521ff7ec798859}{Get\+Rest\+Url}} (Date\+Time from, Date\+Time until)
+\begin{DoxyCompactList}\small\item\em R\+E\+ST U\+RL accepted by the Plugin \end{DoxyCompactList}\item 
+I\+Response \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a2b2c2094cc6388bf6f257a7ba4922bce}{Handle}} (I\+Request req)
+\begin{DoxyCompactList}\small\item\em Checks if the U\+RL is a R\+E\+ST \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} or not, and displays the Temperature Data accordingly \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7e182d7baa7a8bde4fc75cdf0b601ce5}{measure\+Temperature}} ()
+\begin{DoxyCompactList}\small\item\em Simulates measuring Temperature by generating Data dynamically \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shows a Collection of Temperature data as X\+ML if a R\+E\+ST call is made, or as a list if not 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7637c7f1794089a42eb48378feb09144}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7637c7f1794089a42eb48378feb09144}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!CanHandle@{CanHandle}}
+\index{CanHandle@{CanHandle}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{CanHandle()}{CanHandle()}}
+{\footnotesize\ttfamily float My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Can\+Handle (\begin{DoxyParamCaption}\item[{I\+Request}]{req }\end{DoxyParamCaption})}
+
+
+
+Determines if the Plugin Handles a certain \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_ad800a8a367de7d104a521ff7ec798859}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_ad800a8a367de7d104a521ff7ec798859}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!GetRestUrl@{GetRestUrl}}
+\index{GetRestUrl@{GetRestUrl}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{GetRestUrl()}{GetRestUrl()}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Get\+Rest\+Url (\begin{DoxyParamCaption}\item[{Date\+Time}]{from,  }\item[{Date\+Time}]{until }\end{DoxyParamCaption})}
+
+
+
+R\+E\+ST U\+RL accepted by the Plugin 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_af0c6b189c86cf0d7d6ea362e912b975e}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_af0c6b189c86cf0d7d6ea362e912b975e}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!GetUrl@{GetUrl}}
+\index{GetUrl@{GetUrl}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{GetUrl()}{GetUrl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Get\+Url (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+U\+RL accepted by the Plugin 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a922ac91853257974d0dfdaba49d57a68}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a922ac91853257974d0dfdaba49d57a68}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!GetUrl@{GetUrl}}
+\index{GetUrl@{GetUrl}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{GetUrl()}{GetUrl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Get\+Url (\begin{DoxyParamCaption}\item[{Date\+Time}]{day }\end{DoxyParamCaption})}
+
+
+
+U\+RL accepted by the Plugin 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a9148f3a520efcb7b04ed78782cb65918}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a9148f3a520efcb7b04ed78782cb65918}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!GetUrl@{GetUrl}}
+\index{GetUrl@{GetUrl}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{GetUrl()}{GetUrl()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Get\+Url (\begin{DoxyParamCaption}\item[{Date\+Time}]{from,  }\item[{Date\+Time}]{until }\end{DoxyParamCaption})}
+
+
+
+U\+RL accepted by the Plugin 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a2b2c2094cc6388bf6f257a7ba4922bce}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a2b2c2094cc6388bf6f257a7ba4922bce}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!Handle@{Handle}}
+\index{Handle@{Handle}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{Handle()}{Handle()}}
+{\footnotesize\ttfamily I\+Response My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+Handle (\begin{DoxyParamCaption}\item[{I\+Request}]{req }\end{DoxyParamCaption})}
+
+
+
+Checks if the U\+RL is a R\+E\+ST \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} or not, and displays the Temperature Data accordingly 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7e182d7baa7a8bde4fc75cdf0b601ce5}\label{class_my_web_server_1_1_plugins_1_1_temperature_measurement_plugin_a7e182d7baa7a8bde4fc75cdf0b601ce5}} 
+\index{MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}!measureTemperature@{measureTemperature}}
+\index{measureTemperature@{measureTemperature}!MyWebServer.Plugins.TemperatureMeasurementPlugin@{MyWebServer.Plugins.TemperatureMeasurementPlugin}}
+\doxysubsubsection{\texorpdfstring{measureTemperature()}{measureTemperature()}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Plugins.\+Temperature\+Measurement\+Plugin.\+measure\+Temperature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Simulates measuring Temperature by generating Data dynamically 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/genos/\+Documents/\+F\+H-\/\+Folder/3rd\+Sem/\+Deppates\+S\+W\+E\+Projekt/\+S\+W\+E\+\_\+\+C\+S/\+S\+W\+E1-\/\+C\+S/\+My\+Web\+Server/\+Plugins/cs/Temperature\+Measurement\+Plugin.\+cs\end{DoxyCompactItemize}

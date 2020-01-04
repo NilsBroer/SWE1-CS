@@ -1,0 +1,122 @@
+\hypertarget{class_my_web_server_1_1_plugin_manager}{}\doxysection{My\+Web\+Server.\+Plugin\+Manager Class Reference}
+\label{class_my_web_server_1_1_plugin_manager}\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+
+
+The \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager}{Plugin\+Manager}} to choose which Plugin handles a certain \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}}  
+
+
+Inheritance diagram for My\+Web\+Server.\+Plugin\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_web_server_1_1_plugin_manager}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a00374e6fbc60f55a186823c0229a8479}{Plugin\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Constructor, loads \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} at runtime from dll or exe \end{DoxyCompactList}\item 
+I\+Enumerable$<$ I\+Plugin $>$ \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a753737df81f8457354f1603e0d041f44}{Get\+Plugins}} ()
+\begin{DoxyCompactList}\small\item\em returns all available \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_abf611a2b6494aebdac3c32ecea23189f}{Add}} (I\+Plugin plugin)
+\begin{DoxyCompactList}\small\item\em Adds a Plugin to the Manager \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a9ec9a0d4f13e47d32f3bf2397f3bfde9}{Add}} (string plugin)
+\begin{DoxyCompactList}\small\item\em Adds a Plugin via it\textquotesingle{}s name \end{DoxyCompactList}\item 
+I\+Plugin \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a5f8f562bba9cb7138febe7b60def017c}{Get\+Best\+Plugin}} (I\+Request req)
+\begin{DoxyCompactList}\small\item\em Chooses the best Plugin for the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a3d8061c0b45acb1a5651afc1a98a01e3}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears all \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} from the Manager \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+I\+Enumerable$<$ I\+Plugin $>$ \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager_a8e36464ed08453ca8ecbc449a9d8d0e4}{Plugins}} =$>$ Plugins\+\_\+in
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} which are available \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_my_web_server_1_1_plugin_manager}{Plugin\+Manager}} to choose which Plugin handles a certain \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a00374e6fbc60f55a186823c0229a8479}\label{class_my_web_server_1_1_plugin_manager_a00374e6fbc60f55a186823c0229a8479}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!PluginManager@{PluginManager}}
+\index{PluginManager@{PluginManager}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{PluginManager()}{PluginManager()}}
+{\footnotesize\ttfamily My\+Web\+Server.\+Plugin\+Manager.\+Plugin\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor, loads \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} at runtime from dll or exe 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_abf611a2b6494aebdac3c32ecea23189f}\label{class_my_web_server_1_1_plugin_manager_abf611a2b6494aebdac3c32ecea23189f}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!Add@{Add}}
+\index{Add@{Add}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Plugin\+Manager.\+Add (\begin{DoxyParamCaption}\item[{I\+Plugin}]{plugin }\end{DoxyParamCaption})}
+
+
+
+Adds a Plugin to the Manager 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a9ec9a0d4f13e47d32f3bf2397f3bfde9}\label{class_my_web_server_1_1_plugin_manager_a9ec9a0d4f13e47d32f3bf2397f3bfde9}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!Add@{Add}}
+\index{Add@{Add}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Plugin\+Manager.\+Add (\begin{DoxyParamCaption}\item[{string}]{plugin }\end{DoxyParamCaption})}
+
+
+
+Adds a Plugin via it\textquotesingle{}s name 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a3d8061c0b45acb1a5651afc1a98a01e3}\label{class_my_web_server_1_1_plugin_manager_a3d8061c0b45acb1a5651afc1a98a01e3}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!Clear@{Clear}}
+\index{Clear@{Clear}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily void My\+Web\+Server.\+Plugin\+Manager.\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears all \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} from the Manager 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a5f8f562bba9cb7138febe7b60def017c}\label{class_my_web_server_1_1_plugin_manager_a5f8f562bba9cb7138febe7b60def017c}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!GetBestPlugin@{GetBestPlugin}}
+\index{GetBestPlugin@{GetBestPlugin}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{GetBestPlugin()}{GetBestPlugin()}}
+{\footnotesize\ttfamily I\+Plugin My\+Web\+Server.\+Plugin\+Manager.\+Get\+Best\+Plugin (\begin{DoxyParamCaption}\item[{I\+Request}]{req }\end{DoxyParamCaption})}
+
+
+
+Chooses the best Plugin for the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a753737df81f8457354f1603e0d041f44}\label{class_my_web_server_1_1_plugin_manager_a753737df81f8457354f1603e0d041f44}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!GetPlugins@{GetPlugins}}
+\index{GetPlugins@{GetPlugins}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{GetPlugins()}{GetPlugins()}}
+{\footnotesize\ttfamily I\+Enumerable$<$I\+Plugin$>$ My\+Web\+Server.\+Plugin\+Manager.\+Get\+Plugins (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns all available \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_plugin_manager_a8e36464ed08453ca8ecbc449a9d8d0e4}\label{class_my_web_server_1_1_plugin_manager_a8e36464ed08453ca8ecbc449a9d8d0e4}} 
+\index{MyWebServer.PluginManager@{MyWebServer.PluginManager}!Plugins@{Plugins}}
+\index{Plugins@{Plugins}!MyWebServer.PluginManager@{MyWebServer.PluginManager}}
+\doxysubsubsection{\texorpdfstring{Plugins}{Plugins}}
+{\footnotesize\ttfamily I\+Enumerable$<$I\+Plugin$>$ My\+Web\+Server.\+Plugin\+Manager.\+Plugins =$>$ Plugins\+\_\+in}
+
+
+
+The \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} which are available 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/genos/\+Documents/\+F\+H-\/\+Folder/3rd\+Sem/\+Deppates\+S\+W\+E\+Projekt/\+S\+W\+E\+\_\+\+C\+S/\+S\+W\+E1-\/\+C\+S/\+My\+Web\+Server/Plugin\+Manager.\+cs\end{DoxyCompactItemize}

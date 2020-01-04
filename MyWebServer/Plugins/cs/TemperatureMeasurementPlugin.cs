@@ -9,9 +9,15 @@ using System.Threading;
 
 namespace MyWebServer.Plugins
 {
+    /// <summary>
+    /// Shows a Collection of Temperature data as XML if a REST call is made, or as a list if not
+    /// </summary>
     [marked]
     public class TemperatureMeasurementPlugin : IPlugin
     {
+        /// <summary>
+        /// Determines if the Plugin Handles a certain Request
+        /// </summary>
         public float CanHandle(IRequest req)
         {
             if ((req.Url.Path).ToLower().StartsWith("/temperature") || (req.Url.Path).ToLower().StartsWith("/gettemperature")) //why // and not /
@@ -22,16 +28,25 @@ namespace MyWebServer.Plugins
                 return 0.0f;
         }
 
+        /// <summary>
+        /// URL accepted by the Plugin
+        /// </summary>
         public string GetUrl()
         {
             return "/temperature?type=type&from='dd/MM/yyyy HH:mm:ss'&until='dd/MM/yyyy HH:mm:ss'";
         }
 
+        /// <summary>
+        /// URL accepted by the Plugin
+        /// </summary>
         public string GetUrl (DateTime from, DateTime until)
         {
             return $"/temperature?type=regular&from={from.ToString("dd/MM/yyyy HH:mm:ss")}&until={until.ToString("dd/MM/yyyy HH:mm:ss")}";
         }
 
+        /// <summary>
+        /// URL accepted by the Plugin
+        /// </summary>
         public string GetUrl(DateTime day) //Not necessary, template for handling single-day url from indication
         {
             string daystring = day.ToString("yyyy/MM/dd");
@@ -39,11 +54,17 @@ namespace MyWebServer.Plugins
             return $"/GetTemperature/{daystring}";
         }
 
+        /// <summary>
+        /// REST URL accepted by the Plugin
+        /// </summary>
         public string GetRestUrl(DateTime from, DateTime until)
         {
             return $"/temperature?type=rest&from={from.ToString("dd/MM/yyyy HH:mm:ss")}&until={until.ToString("dd/MM/yyyy HH:mm:ss")}";
         }
 
+        /// <summary>
+        /// Checks if the URL is a REST Request or not, and displays the Temperature Data accordingly
+        /// </summary>
         public IResponse Handle(IRequest req)
         {
             Response response = new Response();
@@ -57,7 +78,7 @@ namespace MyWebServer.Plugins
             {
                 SqlConnection myConnection = new SqlConnection();
                 //TODO: Change so it's also works for Chris
-                myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\Nsync\\Google Drive\\UNI\\Semester 03\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
+                myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\genos\\Documents\\FH-Folder\\3rdSem\\DeppatesSWEProjekt\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
 
                 Console.WriteLine("Connection created, path: " + myConnection.ConnectionString);
                 myConnection.Open();
@@ -144,7 +165,7 @@ namespace MyWebServer.Plugins
             {
                 SqlConnection myConnection = new SqlConnection();
                 //TODO: Change so it's also works for Chris
-                myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\Nsync\\Google Drive\\UNI\\Semester 03\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
+                myConnection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = \"C:\\Users\\genos\\Documents\\FH-Folder\\3rdSem\\DeppatesSWEProjekt\\SWE_CS\\SWE1-CS\\MyWebServer\\Database\\Database.mdf\"; Integrated Security = True;"; //Look-up in Server Explorer
 
                 Console.WriteLine("Connection created, path: " + myConnection.ConnectionString);
                 myConnection.Open();
@@ -158,13 +179,23 @@ namespace MyWebServer.Plugins
                 else if((req.Url.Path).ToLower().StartsWith("/gettemperature"))
                 {
                     string day, month, year;
-                    year = req.Url.Segments.ElementAt(1); // 1 or 0 ?
-                    month = req.Url.Segments.ElementAt(2);
-                    day = req.Url.Segments.ElementAt(3);
-                    Console.WriteLine($"{day}-{month}-{year}");
+                    try
+                    {
+                        year = req.Url.Segments.ElementAt(1); // 1 or 0 
+                        month = req.Url.Segments.ElementAt(2);
+                        day = req.Url.Segments.ElementAt(3);
 
+                        Console.WriteLine($"{day}-{month}-{year}");
 
-                    from = Convert.ToDateTime($"{day}-{month}-{year}");
+                        from = Convert.ToDateTime($"{day}-{month}-{year}");
+                    }
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        response.SetContent("<pre>Please specify a date via Segments: gettemperature/YYYY/MM/DD</pre>");
+                        response.StatusCode = 400;
+                        response.ContentType = "text/xml";
+                        return response;
+                    }
                 }
                 else
                     from = DateTime.Now.AddDays(-365 * 10); //max from (roughly) //restrict to segment /all ?
@@ -213,14 +244,17 @@ namespace MyWebServer.Plugins
                 response.StatusCode = 500; //or 400
             return response;
         }
-        
+
+        /// <summary>
+        /// Simulates measuring Temperature by generating Data dynamically
+        /// </summary>
         public void measureTemperature()
         {
             Thread measure_thread = new Thread(() =>
             {
                 while (true)
                 {
-                    DEMO.DB_Populator measurer = new DEMO.DB_Populator(1);
+                    DEMO.DB_Populator measurer = new DEMO.DB_Populator();
                     Thread.Sleep(15000); //inefficient
                 }
                 //Never stops, while server is running

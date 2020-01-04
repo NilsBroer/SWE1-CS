@@ -1,0 +1,221 @@
+\hypertarget{class_my_web_server_1_1_request}{}\doxysection{My\+Web\+Server.\+Request Class Reference}
+\label{class_my_web_server_1_1_request}\index{MyWebServer.Request@{MyWebServer.Request}}
+
+
+Defines H\+T\+ML \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}}  
+
+
+Inheritance diagram for My\+Web\+Server.\+Request\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_web_server_1_1_request}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_web_server_1_1_request_a4f611b0ea1a6b69212aff3837670f106}{Request}} (System.\+I\+O.\+Stream stream\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Constructor, sets the Type and Headers of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_request_a929add97e69dd97621ea456dd0018df8}{Get\+Post\+Val}} (string key)
+\begin{DoxyCompactList}\small\item\em Gets the Values from P\+O\+ST Requests \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_my_web_server_1_1_request_a763e55e38331705da21a735879b9f79a}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Stringifies the Parts included in the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} to display them \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static String \mbox{\hyperlink{class_my_web_server_1_1_request_ad86ba6fefcf337502974283a8523694b}{decode\+Url}} (String url)
+\begin{DoxyCompactList}\small\item\em Decodes U\+R\+Ls to be used by other \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_my_web_server_1_1_request_a1ebe3af3afe432ab7a90cd111d4d62bc}{Is\+Valid}} =$>$ is\+Valid\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the validity of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_request_a9e4f4b3b33ae4b58cbe91f461d744f5d}{Method}} =$>$ method\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Method of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+I\+Url \mbox{\hyperlink{class_my_web_server_1_1_request_a92bbbb7a8fee8faa39456241ea064eb1}{Url}} =$>$ url\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the U\+RL of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+I\+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_my_web_server_1_1_request_a4d002eccc7cd9b52691c248ca3869957}{Headers}} =$>$ headers\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Headers of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_request_ab59b1ee038c74e5de77f21f7a1155ea4}{User\+Agent}} =$>$ user\+\_\+agent\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the User\+Agent of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_my_web_server_1_1_request_a4228bc308e1a57a1f041b1db36821317}{Header\+Count}} =$>$ header\+\_\+count\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Header\+Count of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_my_web_server_1_1_request_a3be19a639501391c961ae36c9802834f}{Content\+Length}} =$>$ content\+\_\+length\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Content Length of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_request_a51b6098e672233a7ddee61372b891d39}{Content\+Type}} =$>$ content\+\_\+type\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Content Type of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+Stream \mbox{\hyperlink{class_my_web_server_1_1_request_a4d781c70c9cbae68975c4b79eb916fa2}{Content\+Stream}} =$>$ content\+\_\+stream\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Content Stream of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_my_web_server_1_1_request_a808b8e33080d67212bc47753ed133d7e}{Content\+String}} =$>$ content\+\_\+string\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} as a String \end{DoxyCompactList}\item 
+byte\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_my_web_server_1_1_request_a9263ea24b76cbb61c662ec0bd59542ca}{Content\+Bytes}} =$>$ content\+\_\+bytes\+\_\+in
+\begin{DoxyCompactList}\small\item\em Gets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} as Bytes \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines H\+T\+ML \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a4f611b0ea1a6b69212aff3837670f106}\label{class_my_web_server_1_1_request_a4f611b0ea1a6b69212aff3837670f106}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!Request@{Request}}
+\index{Request@{Request}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{Request()}{Request()}}
+{\footnotesize\ttfamily My\+Web\+Server.\+Request.\+Request (\begin{DoxyParamCaption}\item[{System.\+I\+O.\+Stream}]{stream\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Constructor, sets the Type and Headers of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_request_ad86ba6fefcf337502974283a8523694b}\label{class_my_web_server_1_1_request_ad86ba6fefcf337502974283a8523694b}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!decodeUrl@{decodeUrl}}
+\index{decodeUrl@{decodeUrl}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{decodeUrl()}{decodeUrl()}}
+{\footnotesize\ttfamily static String My\+Web\+Server.\+Request.\+decode\+Url (\begin{DoxyParamCaption}\item[{String}]{url }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Decodes U\+R\+Ls to be used by other \mbox{\hyperlink{namespace_my_web_server_1_1_plugins}{Plugins}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a929add97e69dd97621ea456dd0018df8}\label{class_my_web_server_1_1_request_a929add97e69dd97621ea456dd0018df8}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!GetPostVal@{GetPostVal}}
+\index{GetPostVal@{GetPostVal}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{GetPostVal()}{GetPostVal()}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Request.\+Get\+Post\+Val (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})}
+
+
+
+Gets the Values from P\+O\+ST Requests 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a763e55e38331705da21a735879b9f79a}\label{class_my_web_server_1_1_request_a763e55e38331705da21a735879b9f79a}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!toString@{toString}}
+\index{toString@{toString}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily String My\+Web\+Server.\+Request.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stringifies the Parts included in the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} to display them 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a9263ea24b76cbb61c662ec0bd59542ca}\label{class_my_web_server_1_1_request_a9263ea24b76cbb61c662ec0bd59542ca}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!ContentBytes@{ContentBytes}}
+\index{ContentBytes@{ContentBytes}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{ContentBytes}{ContentBytes}}
+{\footnotesize\ttfamily byte \mbox{[}$\,$\mbox{]} My\+Web\+Server.\+Request.\+Content\+Bytes =$>$ content\+\_\+bytes\+\_\+in}
+
+
+
+Gets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} as Bytes 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a3be19a639501391c961ae36c9802834f}\label{class_my_web_server_1_1_request_a3be19a639501391c961ae36c9802834f}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!ContentLength@{ContentLength}}
+\index{ContentLength@{ContentLength}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{ContentLength}{ContentLength}}
+{\footnotesize\ttfamily int My\+Web\+Server.\+Request.\+Content\+Length =$>$ content\+\_\+length\+\_\+in}
+
+
+
+Gets the Content Length of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a4d781c70c9cbae68975c4b79eb916fa2}\label{class_my_web_server_1_1_request_a4d781c70c9cbae68975c4b79eb916fa2}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!ContentStream@{ContentStream}}
+\index{ContentStream@{ContentStream}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{ContentStream}{ContentStream}}
+{\footnotesize\ttfamily Stream My\+Web\+Server.\+Request.\+Content\+Stream =$>$ content\+\_\+stream\+\_\+in}
+
+
+
+Gets the Content Stream of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a808b8e33080d67212bc47753ed133d7e}\label{class_my_web_server_1_1_request_a808b8e33080d67212bc47753ed133d7e}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!ContentString@{ContentString}}
+\index{ContentString@{ContentString}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{ContentString}{ContentString}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Request.\+Content\+String =$>$ content\+\_\+string\+\_\+in}
+
+
+
+Gets the Content of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} as a String 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a51b6098e672233a7ddee61372b891d39}\label{class_my_web_server_1_1_request_a51b6098e672233a7ddee61372b891d39}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!ContentType@{ContentType}}
+\index{ContentType@{ContentType}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{ContentType}{ContentType}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Request.\+Content\+Type =$>$ content\+\_\+type\+\_\+in}
+
+
+
+Gets the Content Type of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a4228bc308e1a57a1f041b1db36821317}\label{class_my_web_server_1_1_request_a4228bc308e1a57a1f041b1db36821317}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!HeaderCount@{HeaderCount}}
+\index{HeaderCount@{HeaderCount}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{HeaderCount}{HeaderCount}}
+{\footnotesize\ttfamily int My\+Web\+Server.\+Request.\+Header\+Count =$>$ header\+\_\+count\+\_\+in}
+
+
+
+Gets the Header\+Count of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a4d002eccc7cd9b52691c248ca3869957}\label{class_my_web_server_1_1_request_a4d002eccc7cd9b52691c248ca3869957}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!Headers@{Headers}}
+\index{Headers@{Headers}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{Headers}{Headers}}
+{\footnotesize\ttfamily I\+Dictionary$<$string, string$>$ My\+Web\+Server.\+Request.\+Headers =$>$ headers\+\_\+in}
+
+
+
+Gets the Headers of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a1ebe3af3afe432ab7a90cd111d4d62bc}\label{class_my_web_server_1_1_request_a1ebe3af3afe432ab7a90cd111d4d62bc}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!IsValid@{IsValid}}
+\index{IsValid@{IsValid}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{IsValid}{IsValid}}
+{\footnotesize\ttfamily bool My\+Web\+Server.\+Request.\+Is\+Valid =$>$ is\+Valid\+\_\+in}
+
+
+
+Gets the validity of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a9e4f4b3b33ae4b58cbe91f461d744f5d}\label{class_my_web_server_1_1_request_a9e4f4b3b33ae4b58cbe91f461d744f5d}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!Method@{Method}}
+\index{Method@{Method}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{Method}{Method}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Request.\+Method =$>$ method\+\_\+in}
+
+
+
+Gets the Method of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_a92bbbb7a8fee8faa39456241ea064eb1}\label{class_my_web_server_1_1_request_a92bbbb7a8fee8faa39456241ea064eb1}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!Url@{Url}}
+\index{Url@{Url}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{Url}{Url}}
+{\footnotesize\ttfamily I\+Url My\+Web\+Server.\+Request.\+Url =$>$ url\+\_\+in}
+
+
+
+Gets the U\+RL of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+\mbox{\Hypertarget{class_my_web_server_1_1_request_ab59b1ee038c74e5de77f21f7a1155ea4}\label{class_my_web_server_1_1_request_ab59b1ee038c74e5de77f21f7a1155ea4}} 
+\index{MyWebServer.Request@{MyWebServer.Request}!UserAgent@{UserAgent}}
+\index{UserAgent@{UserAgent}!MyWebServer.Request@{MyWebServer.Request}}
+\doxysubsubsection{\texorpdfstring{UserAgent}{UserAgent}}
+{\footnotesize\ttfamily string My\+Web\+Server.\+Request.\+User\+Agent =$>$ user\+\_\+agent\+\_\+in}
+
+
+
+Gets the User\+Agent of the \mbox{\hyperlink{class_my_web_server_1_1_request}{Request}} 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/genos/\+Documents/\+F\+H-\/\+Folder/3rd\+Sem/\+Deppates\+S\+W\+E\+Projekt/\+S\+W\+E\+\_\+\+C\+S/\+S\+W\+E1-\/\+C\+S/\+My\+Web\+Server/Request.\+cs\end{DoxyCompactItemize}

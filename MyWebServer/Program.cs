@@ -12,6 +12,10 @@ using System.Threading;
 
 namespace MyWebServer
 {
+
+    /// <summary>
+    /// Starts the Server and listening
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
@@ -26,12 +30,18 @@ namespace MyWebServer
         }
     }
 
+    /// <summary>
+    /// The Server itself
+    /// </summary>
     class Server
     {
         private int port = 8080; //8080 is default
         TcpListener listener = null;
         private bool is_running = false;
 
+        /// <summary>
+        /// The Server Constructor
+        /// </summary>
         public Server(int port_in)
         {
             if (port_in > 0)
@@ -50,6 +60,9 @@ namespace MyWebServer
             is_running = true;
         }
 
+        /// <summary>
+        /// Listens for Clients connecting and dispatches the Threads
+        /// </summary>
         public void listen()
         {
             while (is_running)
@@ -74,6 +87,9 @@ namespace MyWebServer
         }
     }
 
+    /// <summary>
+    /// The Client Handler
+    /// </summary>
     class ClientHandler
     {
         private const int BUFFER_SIZE = 1024; //Nicht fix
@@ -81,6 +97,10 @@ namespace MyWebServer
         private NetworkStream nstream;
         private TcpClient client;
         static int connected_client = 0;
+
+        /// <summary>
+        /// Constructor for the Handler
+        /// </summary>
         public ClientHandler(NetworkStream nstream_in, TcpClient client_in)
         {
             nstream = nstream_in;
@@ -88,7 +108,10 @@ namespace MyWebServer
             connected_client++;
             Console.WriteLine("Connected. [{0}]", connected_client);
         }
-        
+
+        /// <summary>
+        /// Picks a Plugin for the Client's request
+        /// </summary>
         public void handle_client()
         {
             Request request = new Request(nstream);

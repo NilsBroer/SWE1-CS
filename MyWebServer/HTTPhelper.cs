@@ -9,9 +9,19 @@ using System.Threading;
 
 namespace MyWebServer
 {
+    /// <summary>
+    /// Contains a List of all HTML Status Codes
+    /// </summary>
     class HTTPhelper
     {
+        /// <summary>
+        /// Dictionary of the Codes and their Meaning
+        /// </summary>
         public Dictionary <int,string> HTTPStatusCodes = new Dictionary<int,string>();
+
+        /// <summary>
+        /// Constructor, reads from a file and adds the statuscodes and their meaning
+        /// </summary>
         public HTTPhelper()
         {
             try //Read a bunch of possible HTTP-Statuses from a file, ready for use :)

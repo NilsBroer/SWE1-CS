@@ -7,12 +7,26 @@ using System.Text;
 
 namespace MyWebServer
 {
+    /// <summary>
+    /// The Response Part of the HTTP Protocol
+    /// </summary>
     public class Response : IResponse
     {
         HTTPhelper helper = new HTTPhelper();
+
+        /// <summary>
+        /// StatusCode Field
+        /// </summary>
         public int statuscode_in;
+
+        /// <summary>
+        /// Content as Byte Array
+        /// </summary>
         public byte[] content;
 
+        /// <summary>
+        /// Constructor, Adds Server Header and Creates Header Dictionary
+        /// </summary>
         public Response()
         {
             this.Headers = new Dictionary<string, string>
@@ -25,6 +39,9 @@ namespace MyWebServer
             //AddHeader("Server", "Default Server-Name");  //Testing
         }
 
+        /// <summary>
+        /// List of all accepted Content Types
+        /// </summary>
         public readonly IDictionary<string, string> ValidContentTypes = new Dictionary<string, string>()
         {
             {"html", "text/html; charset=UTF-8"}, {"txt", "text/plain"}, {"css", "text/css"}, {"png", "image/png"},
@@ -45,6 +62,9 @@ namespace MyWebServer
             //AddHeader("Server", "Default Server-Name");   //Testing
         }*/
 
+        /// <summary>
+        /// Length of the Response'S Content
+        /// </summary>
         public int ContentLength
         {
             get
@@ -60,13 +80,22 @@ namespace MyWebServer
             }
         }
 
+        /// <summary>
+        /// Type of the Response's Content
+        /// </summary>
         public string ContentType
         {
             get => this.Headers["ContentType"]; set => this.Headers["ContentType"] = value;
         }
 
+        /// <summary>
+        /// Gets all Headers of the Response
+        /// </summary>
         public IDictionary<string, string> Headers { get; }
 
+        /// <summary>
+        /// Sets the Status Code of the Response
+        /// </summary>
         public int StatusCode
         {
             get
@@ -80,6 +109,9 @@ namespace MyWebServer
             set => statuscode_in = value;
         }
 
+        /// <summary>
+        /// Gets the Status Description of the Response
+        /// </summary>
         public string Status
         {
             get
@@ -88,14 +120,22 @@ namespace MyWebServer
             }
         }
 
-
+        /// <summary>
+        /// Server Header Already Added, can be disregarded
+        /// </summary>
         public string ServerHeader { get; set; }
-      
+
+        /// <summary>
+        /// Adds a Header to the Response
+        /// </summary>
         public void AddHeader(string header, string value)
         {
             Headers[header] = value;
         }
 
+        /// <summary>
+        /// Sends the Response
+        /// </summary>
         public void Send(Stream network)
         {
             if ((this.ContentType != null && this.ContentType != "") && this.ContentLength <= 0)
@@ -122,22 +162,31 @@ namespace MyWebServer
             if (this.StatusCode != 404 && this.content != null)  //Content hier
             {
                 BinaryWriter bw = new BinaryWriter(network);
-             bw.Write(this.content);
+                bw.Write(this.content);
                 bw.Flush();
             }
         }
 
+        /// <summary>
+        /// Converts a given string to Bytes to be Set by another Method
+        /// </summary>
         public void SetContent(string content)
         {
             this.SetContent(Encoding.UTF8.GetBytes(content));
         }
 
+        /// <summary>
+        /// Sets the Content of the Response with given ByteArray
+        /// </summary>
         public void SetContent(byte[] content)
         {
             this.content = content;
             this.Headers["ContentLength"] = this.content.Length.ToString();   //direkt die eigenschaft
         }
 
+        /// <summary>
+        /// Sets the Content of the Response by Converting from Stream and Passing it as a ByteArray
+        /// </summary>
         public void SetContent(Stream stream)
         {
             using (MemoryStream ms = new MemoryStream())

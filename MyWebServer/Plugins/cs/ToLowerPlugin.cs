@@ -7,9 +7,15 @@ using MyWebServer;
 
 namespace MyWebServer.Plugins
 {
+    /// <summary>
+    /// Plugin to lowercase a given Text
+    /// </summary>
     [marked]
     public class ToLowerPlugin : IPlugin
     {
+        /// <summary>
+        /// Determines if the Plugin handles the request
+        /// </summary>
         public float CanHandle(IRequest req)
         {
             if (req.IsValid == false)
@@ -23,11 +29,17 @@ namespace MyWebServer.Plugins
             return 0.1f; //can lower any string
         }
 
+        /// <summary>
+        /// the Plugins accepted URL
+        /// </summary>
         public string GetUrl()
         {
             return "/tolower";
         }
 
+        /// <summary>
+        /// Takes a text in a field and displays it lowercase in a pre-tag once submitted
+        /// </summary>
         public IResponse Handle(IRequest req)
         {
             if (this.CanHandle(req) <= 0)
