@@ -7,11 +7,17 @@ using System.IO;
 
 namespace MyWebServer.Plugins
 {
+    /// <summary>
+    /// Plugin to display local files on the Server
+    /// </summary>
     [marked]
     public class StaticFilePlugin : IPlugin
     {
         string folder;
 
+        /// <summary>
+        /// Checks if the Request is to be handled by this Plugin
+        /// </summary>
         public float CanHandle(IRequest req)
         {
 
@@ -35,11 +41,17 @@ namespace MyWebServer.Plugins
             */
         }
 
+        /// <summary>
+        /// StaticFile's accepted URL format
+        /// </summary>
         public string GetUrl()
         {
             return "/static";
         }
 
+        /// <summary>
+        /// URL to be handled by this Plugin
+        /// </summary>
         public string GetUrl(string fileName)
         {
             if (fileName.StartsWith("/"))
@@ -47,11 +59,17 @@ namespace MyWebServer.Plugins
             return "/static/" + fileName;
         }
 
+        /// <summary>
+        /// Sets the Folder to be used by the plugin
+        /// </summary>
         public void SetStatiFileFolder(string folder)
         {
             this.folder = folder;
         }
 
+        /// <summary>
+        /// Displays the File requested in the Browser
+        /// </summary>
         public IResponse Handle(IRequest req)
         {
             Response res = new Response();

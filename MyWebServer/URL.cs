@@ -6,16 +6,26 @@ using BIF.SWE1.Interfaces;
 
 namespace MyWebServer
 {
+    /// <summary>
+    /// The Class for the URL
+    /// </summary>
     public class Url : IUrl
     {
         Dictionary<String, String> parameterDictionary = new Dictionary<string, string>();
         string rawURL, path, trimmed_path, fragment, filename, extension;
         String[] parameters, segments;
+
+        /// <summary>
+        /// Constructor, does not do anything 
+        /// </summary>
         public Url()
         {
 
         }
 
+        /// <summary>
+        /// Constructor with a given String, splits all the Parameters, Segments, and Substrings
+        /// </summary>
         public Url(string raw)
         {
             rawURL = raw;
@@ -86,41 +96,65 @@ namespace MyWebServer
             }
         }
 
+        /// <summary>
+        /// Gets the Parameters of the URL
+        /// </summary>
         public IDictionary<string, string> Parameter
         {
             get { return parameterDictionary; }
         }
 
+        /// <summary>
+        /// Gets the Amount of Parameters included in the URL
+        /// </summary>
         public int ParameterCount
         {
             get { return parameterDictionary.Count; }
         }
 
+        /// <summary>
+        /// Returns the path of the URL
+        /// </summary>
         public string Path
         {
             get { return trimmed_path; }
         }
 
+        /// <summary>
+        /// Returns the Raw URL as given
+        /// </summary>
         public string RawUrl
         {
             get { return rawURL; }
         }
 
+        /// <summary>
+        /// Returns the URL Extension
+        /// </summary>
         public string Extension
         {
             get { return extension; }
         }
 
+        /// <summary>
+        /// Returns a given Filename in the URL
+        /// </summary>
         public string FileName
         {
             get { return filename; }
         }
 
+        /// <summary>
+        /// returns Fragment of the URL
+        /// </summary>
         public string Fragment
         {
             get { return fragment; }
         }
 
+        /// <summary>
+        /// Returns all Segments of the URL
+        /// </summary>
         public string[] Segments
         {
             get { return segments; }

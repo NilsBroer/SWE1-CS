@@ -9,10 +9,13 @@ using MyWebServer.Plugins;
 
 namespace MyWebServer
 {
+    /// <summary>
+    /// The PluginManager to choose which Plugin handles a certain Request
+    /// </summary>
     class PluginManager : IPluginManager
     {
         private List<IPlugin> Plugins_in = new List<IPlugin>();
-        private static string _PluginFolder = "Plugins";
+        private static string _PluginFolder = "";
         private static string _ExecutionLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         /*
@@ -50,6 +53,9 @@ namespace MyWebServer
         }
 */
 
+        /// <summary>
+        /// Constructor, loads Plugins at runtime from dll or exe
+        /// </summary>
         public PluginManager()
         {
 
@@ -77,18 +83,30 @@ namespace MyWebServer
             }
         }
 
+        /// <summary>
+        /// The Plugins which are available
+        /// </summary>
         public IEnumerable<IPlugin> Plugins => Plugins_in;
 
+        /// <summary>
+        /// returns all available Plugins
+        /// </summary>
         public IEnumerable<IPlugin> GetPlugins()
         {
             return this.Plugins;
         }
 
+        /// <summary>
+        /// Adds a Plugin to the Manager
+        /// </summary>
         public void Add(IPlugin plugin)
         {
             Plugins_in.Add(plugin);
         }
 
+        /// <summary>
+        /// Adds a Plugin via it's name
+        /// </summary>
         public void Add(string plugin)
         {
             IPlugin pluginObj = (IPlugin)Activator.CreateInstance(Type.GetType(plugin)); 
@@ -101,6 +119,9 @@ namespace MyWebServer
                 Plugins_in.Add(pluginObj);
         }
 
+        /// <summary>
+        /// Chooses the best Plugin for the Request
+        /// </summary>
         public IPlugin GetBestPlugin (IRequest req)
         {
             IPlugin plug = null;
@@ -124,6 +145,9 @@ namespace MyWebServer
             return plug;
         }
 
+        /// <summary>
+        /// Clears all Plugins from the Manager
+        /// </summary>
         public void Clear()
         {
             Plugins_in.Clear();

@@ -12,39 +12,46 @@ using BIF.SWE1.Interfaces;
 
 namespace MyWebServer.Plugins
 {
+    /// <summary>
+    /// Navigation Plugin takes a Street and reads an OSM Map to search for matching cities
+    /// </summary>
     [marked]
     public class NavigationPlugin : IPlugin
     {
         //cities sind KEYS und Straßen VALUES
-        private Dictionary<string, List<string>> _WholeMap;
-        private Dictionary<string, List<string>> _NewMap;
+        private static Dictionary<string, List<string>> _ParsedDict;
+        private static Dictionary<string, List<string>> _NewDict;
 
-        private Mutex _ReadingMutex = new Mutex();
-        private Object _CopyLock = new Object();
-         
-        //private static string _OsmSubDir = "navmaps";   //DIESEN ORDNER erstellen, einmal bei den tests und einmal normal im deploy folder wie immer oder so, kennst dich eh aus ;^)
+        private static SoftLock _MapParserMutex = new SoftLock();
+        private static Object _LockObject = new Object();        
         
-        private static string _OsmPath = @"C:\Users\Nsync\Google Drive\UNI\Semester 03\SWE_CS\SWE1-CS\Libs\";
-        //private static string _OsmPatch = @""; //Your Hard-Link goes here for now, Chris - Nicht vergessen meinen auszukommentieren
+        private static string _OsmPath = @"C:\Users\genos\Documents\FH-Folder\3rdSem\DeppatesSWEProjekt\SWE_CS\SWE1-CS\Libs\";
+        //private static string _OsmPath = @"C:\Users\genos\Documents\FH-Folder\3rdSem\DeppatesSWEProjekt\SWE_CS\SWE1-CS\Libs\"; //Your Hard-Link goes here for now, Chris - Nicht vergessen meinen auszukommentieren
         //private static string _OsmPath = @"C:\ProgramData\SWE01\"; //use this one for running tests, to exclude the read of osm-file(s) for runtime-reasons
 
-        private const float _CanHandleReturn = 1.0f;
-        private const float _CannotHandleReturn = 0.1f;
-
+        /// <summary>
+        /// Constructor, also creates path for the OSM files
+        /// </summary>
         public NavigationPlugin()
         {
             Directory.CreateDirectory(_OsmPath); //Machma diese Folder, wenn gibt noch nicht
         }
 
+        /// <summary>
+        /// Checks whether the Plugin handles a specific Request
+        /// </summary>
         public float CanHandle(IRequest req)
         {
             if (req.Url.Path.Contains(this.GetUrl()))
             {
-                return _CanHandleReturn;
+                return 1.0f;
             }
-            return _CannotHandleReturn;
+            return 0.1f;
         }
 
+        /// <summary>
+        /// Handles a healthy request, can save the map in the program's memory or parse through the OSM file to find cities
+        /// </summary>
         public IResponse Handle(IRequest req)
         {
             var rsp = new Response();
@@ -84,25 +91,25 @@ namespace MyWebServer.Plugins
             List<string> result = new List<string>();
 
             //Gibts die Map schon im speicher?
-            if (_WholeMap != null && (req.Url.ParameterCount == 0 || (req.Url.ParameterCount == 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "false")))
+            if (_ParsedDict != null && (req.Url.ParameterCount == 0 || (req.Url.ParameterCount == 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "false")))
             {
-                lock (_ReadingMutex)
+                lock (_LockObject)
                 {
-                    if (_WholeMap.ContainsKey(searchStreet.ToLower()))
+                    if (_ParsedDict.ContainsKey(searchStreet.ToLower()))
                     {
-                        result = _WholeMap[searchStreet.ToLower()];
+                        result = _ParsedDict[searchStreet.ToLower()];
                     }
                 }
             }
 
             // Na? Hol ma aus File //fixed: findet das file :) LG Nils
-            else if (_ReadingMutex.WaitOne(2000)) // Wait macht dass er sich die ressource krallt, wenn sie besetzt ist gibt es false und wir kommen in das andere else
+            else if (_MapParserMutex.TryWait()) // Wait macht dass er sich die ressource krallt, wenn sie besetzt ist gibt es false und wir kommen in das andere else
             {
                 // Wenn in der URL Update stand, muss man map neu machen
                 if (req.Url.ParameterCount == 1 && req.Url.Parameter.ContainsKey("Update") && req.Url.Parameter["Update"] == "true")
                 {
                     List<string> res = ReadWholeFile(saveAll: true);
-                    _ReadingMutex.ReleaseMutex();
+                    _MapParserMutex.Release();
 
                     XElement xmlEles = new XElement("div", "Erfolgreiches Update");
                     if (res != null && res.Count > 0)
@@ -114,22 +121,24 @@ namespace MyWebServer.Plugins
                 }
 
                 // Straße
-                else if (_WholeMap == null)
+                else if (_ParsedDict == null)
                 {
                     result = ReadWholeFile(searchStreet: searchStreet);
                 }
 
-                _ReadingMutex.ReleaseMutex();
+                _MapParserMutex.Release();
             }
+            
             // Parsen von Map
             else
             {
-                rsp.SetContent("Das NavigationPlugin kann diese Funktion zurzeit nicht ausführen, sie wird bereits benutzt. Bitte versuchen Sie es später noch einmal.");
-                return rsp;
+                Response resp = new Response();
+                resp.StatusCode = 503;
+                resp.SetContent("Currently Parsing Map, please try again shortly!");
+                return resp;
             }
 
             // Daten erfolgreich geparsed, antworten
-
             XElement xmlElements = new XElement("div", result.Count + " Orte gefunden");
             if (result.Count > 0)
             {
@@ -150,11 +159,11 @@ namespace MyWebServer.Plugins
         {
             if (saveAll)
             {
-                if (_NewMap == null)
+                if (_NewDict == null)
                 {
-                    _NewMap = new Dictionary<string, List<string>>();
+                    _NewDict = new Dictionary<string, List<string>>();
                 }
-                _NewMap.Clear();
+                _NewDict.Clear();
             }
 
             List<string> result = new List<string>();
@@ -184,22 +193,22 @@ namespace MyWebServer.Plugins
             // In den Programm Speicher ziehen
             if (saveAll)
             {
-                lock (_CopyLock)
+                lock (_LockObject)
                 {
-                    if (_WholeMap == null)
+                    if (_ParsedDict == null)
                     {
-                        _WholeMap = new Dictionary<string, List<string>>();
+                        _ParsedDict = new Dictionary<string, List<string>>();
                     }
-                    _WholeMap.Clear();
+                    _ParsedDict.Clear();
 
-                    // Copies all the data to the _WholeMap
-                    foreach (var pair in _NewMap)
+                    // Copies all the data to the _ParsedDict
+                    foreach (var pair in _NewDict)
                     {
-                        _WholeMap.Add(pair.Key, new List<string>());
+                        _ParsedDict.Add(pair.Key, new List<string>());
 
                         foreach (var item in pair.Value)
                         {
-                            _WholeMap[pair.Key].Add(item);
+                            _ParsedDict[pair.Key].Add(item);
                         }
                     }
                 }
@@ -265,13 +274,13 @@ namespace MyWebServer.Plugins
                     if (saveAll)
                     {
 
-                        if (_NewMap.ContainsKey(street.ToLower()) && !_NewMap[street.ToLower()].Contains(city))
+                        if (_NewDict.ContainsKey(street.ToLower()) && !_NewDict[street.ToLower()].Contains(city))
                         {
-                            _NewMap[street.ToLower()].Add(city);
+                            _NewDict[street.ToLower()].Add(city);
                         }
-                        else if (!_NewMap.ContainsKey(street.ToLower()))
+                        else if (!_NewDict.ContainsKey(street.ToLower()))
                         {
-                            _NewMap.Add(street.ToLower(), new List<string>(new[] { city }));
+                            _NewDict.Add(street.ToLower(), new List<string>(new[] { city }));
                         }
                     }
                     else
@@ -287,6 +296,9 @@ namespace MyWebServer.Plugins
             return cities;
         }
 
+        /// <summary>
+        /// Format of the Plugin's accepted URL
+        /// </summary>
         public string GetUrl()
         {
             return "/navigation";

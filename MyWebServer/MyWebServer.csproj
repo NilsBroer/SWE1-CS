@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="SoftLock.cs" />
     <Compile Include="Uebungen\UEB7_custom.cs" />
     <Compile Include="Uebungen\UEB1.cs" />
     <Compile Include="Uebungen\UEB2.cs" />

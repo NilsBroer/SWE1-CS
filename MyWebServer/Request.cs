@@ -8,6 +8,9 @@ using System.Web;
 
 namespace MyWebServer
 {
+    /// <summary>
+    /// Defines HTML Request
+    /// </summary>
     public class Request : IRequest
     {
         string method_in, url_str, user_agent_in, content_type_in;
@@ -23,6 +26,9 @@ namespace MyWebServer
 
         string[] valid_methods = { "POST", "GET", "PUT", "PATCH", "DELETE", "HEAD", "TRACE", "OPTIONS", "CONNECT" };
 
+        /// <summary>
+        /// Constructor, sets the Type and Headers of the Request
+        /// </summary>
         public Request(System.IO.Stream stream_in)
         {
             StreamReader stream = new StreamReader(stream_in);
@@ -82,11 +88,17 @@ namespace MyWebServer
 
         private Dictionary<String,String> postPar = new Dictionary<String,String>();
 
+        /// <summary>
+        /// Decodes URLs to be used by other Plugins
+        /// </summary>
         public static String decodeUrl (String url)
         {
             return HttpUtility.UrlDecode(url, System.Text.Encoding.UTF8);
         }
 
+        /// <summary>
+        /// Gets the Values from POST Requests
+        /// </summary>
         public string GetPostVal (string key)
         {
             if (!this.Method.Equals("POST"))    
@@ -113,6 +125,9 @@ namespace MyWebServer
             return null;
         }
 
+        /// <summary>
+        /// Stringifies the Parts included in the Request to display them
+        /// </summary>
         public String toString()
         {
             String returnValue = "Request Method: " + this.method_in + "\n";
@@ -127,28 +142,61 @@ namespace MyWebServer
             return returnValue;
         }
 
-//-----------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Gets the validity of the Request
+        /// </summary>
         public bool IsValid => isValid_in;
 
+        /// <summary>
+        /// Gets the Method of the Request
+        /// </summary>
         public string Method => method_in;
 
+        /// <summary>
+        /// Gets the URL of the Request
+        /// </summary>
         public IUrl Url => url_in;
 
+        /// <summary>
+        /// Gets the Headers of the Request
+        /// </summary>
         public IDictionary<string, string> Headers => headers_in;
 
+        /// <summary>
+        /// Gets the UserAgent of the Request
+        /// </summary>
         public string UserAgent => user_agent_in;
 
+        /// <summary>
+        /// Gets the HeaderCount of the Request
+        /// </summary>
         public int HeaderCount => header_count_in;
 
+        /// <summary>
+        /// Gets the Content Length of the Request
+        /// </summary>
         public int ContentLength => content_length_in;
 
+        /// <summary>
+        /// Gets the Content Type of the Request
+        /// </summary>
         public string ContentType => content_type_in;
 
+        /// <summary>
+        /// Gets the Content Stream of the Request
+        /// </summary>
         public Stream ContentStream => content_stream_in;
 
+        /// <summary>
+        /// Gets the Content of the Request as a String
+        /// </summary>
         public string ContentString => content_string_in;
 
+        /// <summary>
+        /// Gets the Content of the Request as Bytes
+        /// </summary>
         public byte[] ContentBytes => content_bytes_in;
 
        
